@@ -1,13 +1,15 @@
 package com.xbean.test.bean;
 
-import com.xbean.annotations.Property;
+import com.xbean.annotations.Convertible;
 
 
 public class ClientBean {
-	@Property
+	
 	private int integer;
-	@Property
+	
 	private String string;
+	
+	private int differentName2;
 	
 	public int getInteger() {
 		return integer;
@@ -20,6 +22,12 @@ public class ClientBean {
 	}
 	public void setString(String string) {
 		this.string = string;
+	}
+	public void setDifferentName2(int differentName2) {
+		this.differentName2 = differentName2;
+	}
+	public int getDifferentName2() {
+		return differentName2;
 	}
 	
 }

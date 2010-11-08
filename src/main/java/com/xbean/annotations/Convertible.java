@@ -15,13 +15,14 @@ import java.lang.annotation.Target;
  */
 @Retention(RUNTIME)
 @Target(FIELD)
-public @interface Property {
+public @interface Convertible {
 
 	/**
 	 * String represents the property name from the source bean.
 	 * 
 	 * @return
 	 */
-	String value() default "";
-
+	String alias() default "";
+	
+	//String alias();
 }

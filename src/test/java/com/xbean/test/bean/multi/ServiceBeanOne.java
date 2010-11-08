@@ -1,13 +1,8 @@
-package com.xbean.test.bean;
+package com.xbean.test.bean.multi;
 
-import com.xbean.annotations.Convertible;
-
-public class ServiceBean {
-	@Convertible
+public class ServiceBeanOne {
 	private int integer;
-	@Convertible
 	private String string;
-	@Convertible(alias="differentName2")
 	private int differentName1;
 	
 	public int getInteger() {
