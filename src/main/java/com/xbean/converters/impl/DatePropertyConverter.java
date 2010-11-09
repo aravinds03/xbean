@@ -2,9 +2,9 @@ package com.xbean.converters.impl;
 
 import java.util.Date;
 
-import com.xbean.converters.PropertyConverterAdapter;
+import com.xbean.converters.PropertyConverter;
 
-public class DatePropertyConverter extends PropertyConverterAdapter<Date, String> {
+public class DatePropertyConverter implements PropertyConverter<Date, String> {
 
 	/*
 	 * (non-Javadoc)

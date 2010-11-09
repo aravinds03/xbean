@@ -30,7 +30,7 @@ public interface BeanConverter {
 	 * @param pTargetObject an instance of the target object.
 	 * @throws CannotConvertException
 	 */
-	<S, D> void populate(D pTargetObject, S... pSourceObject) throws CannotConvertException;
+	<S, D> void convertByInstance(D pTargetObject, S... pSourceObject) throws CannotConvertException;
 
 	<S, D> List<D> convertToList(List<S> pSourceList, Class<D> pDestination) throws Exception;
 
