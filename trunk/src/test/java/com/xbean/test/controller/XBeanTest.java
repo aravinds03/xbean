@@ -33,7 +33,7 @@ public class XBeanTest {
 		c.setString("Hello");
 		c.setDifferentName2(2500);
 		ServiceBean convert = new ServiceBean();
-		annotationBeanConverter.populate(convert,c);
+		annotationBeanConverter.convertByInstance(convert,c);
 		Assert.assertEquals(123,convert.getInteger());
 		Assert.assertEquals("Hello",convert.getString());
 		Assert.assertEquals(2500,convert.getDifferentName1());
@@ -55,7 +55,7 @@ public class XBeanTest {
 		
 		
 		CompositeClientBean c= new CompositeClientBean();
-		annotationBeanConverter.populate(c,s1,s2);
+		annotationBeanConverter.convertByInstance(c,s1,s2);
 		//annotationBeanConverter.populate(s2, c);
 		
 		Assert.assertEquals(123,c.getInteger());
