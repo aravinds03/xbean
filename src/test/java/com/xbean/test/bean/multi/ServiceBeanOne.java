@@ -5,6 +5,8 @@ public class ServiceBeanOne {
 	private String string;
 	private int differentName1;
 	
+	private String ignoredString;
+	
 	public int getInteger() {
 		return integer;
 	}
@@ -22,6 +24,12 @@ public class ServiceBeanOne {
 	}
 	public int getDifferentName1() {
 		return differentName1;
+	}
+	public void setIgnoredString(String ignoredString) {
+		this.ignoredString = ignoredString;
+	}
+	public String getIgnoredString() {
+		return ignoredString;
 	}
 	
 }

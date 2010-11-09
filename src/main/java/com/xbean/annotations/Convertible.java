@@ -22,7 +22,6 @@ public @interface Convertible {
 	 * 
 	 * @return
 	 */
-	String alias() default "";
+	String value() default "";
 	
-	//String alias();
 }

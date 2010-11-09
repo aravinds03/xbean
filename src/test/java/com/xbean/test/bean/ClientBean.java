@@ -1,6 +1,5 @@
 package com.xbean.test.bean;
 
-import com.xbean.annotations.Convertible;
 
 
 public class ClientBean {
@@ -10,6 +9,10 @@ public class ClientBean {
 	private String string;
 	
 	private int differentName2;
+	
+	private long longVar;
+	
+	private long ignoredLongVar;
 	
 	public int getInteger() {
 		return integer;
@@ -28,6 +31,18 @@ public class ClientBean {
 	}
 	public int getDifferentName2() {
 		return differentName2;
+	}
+	public void setLongVar(long longVar) {
+		this.longVar = longVar;
+	}
+	public long getLongVar() {
+		return longVar;
+	}
+	public void setIgnoredLongVar(long ignoredLongVar) {
+		this.ignoredLongVar = ignoredLongVar;
+	}
+	public long getIgnoredLongVar() {
+		return ignoredLongVar;
 	}
 	
 }
