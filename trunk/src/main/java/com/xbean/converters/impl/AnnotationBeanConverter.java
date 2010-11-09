@@ -110,13 +110,11 @@ public class AnnotationBeanConverter implements BeanConverter {
 				}
 				Convertible sourceAnnotation = field.getAnnotation(Convertible.class);
 
-				if (sourceAnnotation != null && sourceAnnotation.alias() != null
-						&& !sourceAnnotation.alias().equals("")) {
-					fieldsMap.put(sourceAnnotation.alias(), field.getName());
-				} else if (sourceAnnotation != null) {
-					fieldsMap.put(field.getName(), field.getName());
+				if (sourceAnnotation != null && sourceAnnotation.value() != null
+						&& !sourceAnnotation.value().equals("")) {
+					fieldsMap.put(sourceAnnotation.value(), field.getName());
 				} else {
-					// dont convert other un-annotated fields.
+					fieldsMap.put(field.getName(), field.getName());
 				}
 			}
 

@@ -19,10 +19,14 @@ public class XBeanTest {
 		c.setInteger(123);
 		c.setString("Hello");
 		c.setDifferentName2(2500);
+		c.setLongVar(20000000000l);
+		c.setIgnoredLongVar(3333333l);
 		ServiceBean convert = annotationBeanConverter.convert(ServiceBean.class,c);
 		Assert.assertEquals(123,convert.getInteger());
 		Assert.assertEquals("Hello",convert.getString());
 		Assert.assertEquals(2500,convert.getDifferentName1());
+		Assert.assertEquals(20000000000l, convert.getLongVar());
+		Assert.assertEquals(0l, convert.getIgnoredLongVar());
 	}
 	
 	@Test
@@ -32,11 +36,15 @@ public class XBeanTest {
 		c.setInteger(123);
 		c.setString("Hello");
 		c.setDifferentName2(2500);
+		c.setLongVar(20000000000l);
+		c.setIgnoredLongVar(3333333l);
 		ServiceBean convert = new ServiceBean();
 		annotationBeanConverter.convertByInstance(convert,c);
 		Assert.assertEquals(123,convert.getInteger());
 		Assert.assertEquals("Hello",convert.getString());
 		Assert.assertEquals(2500,convert.getDifferentName1());
+		Assert.assertEquals(20000000000l, convert.getLongVar());
+		Assert.assertEquals(0l, convert.getIgnoredLongVar());
 	}
 	
 	@Test
@@ -47,6 +55,7 @@ public class XBeanTest {
 		s1.setInteger(123);
 		s1.setDifferentName1(222);
 		s1.setString("somestring");
+		s1.setIgnoredString("ignoredString");
 		
 		ServiceBeanTwo s2 = new ServiceBeanTwo();
 		s2.setInteger2(333);
@@ -67,8 +76,12 @@ public class XBeanTest {
 		Assert.assertEquals("somestring",c.getString());
 		Assert.assertEquals("string2", c.getString2());
 		
+		Assert.assertEquals(null, c.getIgnoredString());
+		
 	}
 	
-	// TODO: Add tests for cases where you have same field names for different types of members
+	// TODO: Add tests for cases where you have same field names for different types of members in different beans
 	// TODO: Add tests with convertor.
+	// TODO: add tests for collection data types
+	// TODO: Add tests for hierarchial classes/objects
 }

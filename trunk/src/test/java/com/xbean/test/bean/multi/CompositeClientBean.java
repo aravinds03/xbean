@@ -1,25 +1,27 @@
 package com.xbean.test.bean.multi;
 
 import com.xbean.annotations.Convertible;
+import com.xbean.annotations.Ignore;
 
 
 public class CompositeClientBean {
 	@Convertible
 	private int integer;
-	@Convertible
+
 	private String string;
-	@Convertible(alias="differentName1")
+	@Convertible("differentName1")
 	private int differentName2;
 	
 	@Convertible
 	private int integer2;
 	
-	@Convertible
 	private String string2;
 	
-	@Convertible(alias="differentName3")
+	@Convertible("differentName3")
 	private int differentName4;
 	
+	@Ignore
+	private String ignoredString;
 	
 	public int getInteger2() {
 		return integer2;
@@ -56,6 +58,12 @@ public class CompositeClientBean {
 	}
 	public int getDifferentName2() {
 		return differentName2;
+	}
+	public void setIgnoredString(String ignoredString) {
+		this.ignoredString = ignoredString;
+	}
+	public String getIgnoredString() {
+		return ignoredString;
 	}
 	
 }
