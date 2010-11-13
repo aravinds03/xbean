@@ -1,8 +1,8 @@
 * [GettingStarted Getting Started]
-* How to use
-  * [SimpleBeanConversion Simple Bean conversion]
-  * [PropertyConversion Custom Property conversion]
-  * [MultiBeanConversion Multi Bean conversion]
+  * How to use
+    * [SimpleBeanConversion Simple Bean conversion]
+    * [PropertyConversion Custom Property conversion]
+    * [MultiBeanConversion Multi Bean conversion]
 * [Downloads Downloads]
 * [Feedback Feedback]
 * [AboutUs About us]
