@@ -2,9 +2,8 @@
 
 * How to use
   * [SimpleBeanConversion Simple Bean conversion]
-  * [PropertyConversion Property conversion]
+  * [PropertyConversion Custom Property conversion]
   * [MultiBeanConversion Multi Bean conversion]
-  * [CustomPropertyConversion Custom property conversion]
 * [Downloads Downloads]
 * [Feedback Feedback]
 * [AboutUs About us]
