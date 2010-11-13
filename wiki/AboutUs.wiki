@@ -1,0 +1,8 @@
+#summary About us
+
+= Project Contributor =
+ * Aravind S 
+ * Pradeep S
+ 
+= Project Motivator =
+ * Raghunandan H
