@@ -1,48 +1,90 @@
 package com.xbean.test.bean;
 
-
-
 public class ClientBean {
-	
-	private int integer;
-	
-	private String string;
-	
-	private int differentName2;
-	
+
+	private int id;
+
+	private String name;
+
+	private String differentName2;
+
 	private long longVar;
-	
+
 	private long ignoredLongVar;
-	
-	public int getInteger() {
-		return integer;
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
 	}
-	public void setInteger(int integer) {
-		this.integer = integer;
+
+	/**
+	 * @param pId
+	 *            the id to set
+	 */
+	public void setId(int pId) {
+		id = pId;
 	}
-	public String getString() {
-		return string;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
-	public void setString(String string) {
-		this.string = string;
+
+	/**
+	 * @param pName
+	 *            the name to set
+	 */
+	public void setName(String pName) {
+		name = pName;
 	}
-	public void setDifferentName2(int differentName2) {
-		this.differentName2 = differentName2;
-	}
-	public int getDifferentName2() {
+
+	/**
+	 * @return the differentName
+	 */
+	public String getDifferentName() {
 		return differentName2;
 	}
-	public void setLongVar(long longVar) {
-		this.longVar = longVar;
+
+	/**
+	 * @param pDifferentName
+	 *            the differentName to set
+	 */
+	public void setDifferentName(String pDifferentName) {
+		differentName2 = pDifferentName;
 	}
+
+	/**
+	 * @return the longVar
+	 */
 	public long getLongVar() {
 		return longVar;
 	}
-	public void setIgnoredLongVar(long ignoredLongVar) {
-		this.ignoredLongVar = ignoredLongVar;
+
+	/**
+	 * @param pLongVar
+	 *            the longVar to set
+	 */
+	public void setLongVar(long pLongVar) {
+		longVar = pLongVar;
 	}
+
+	/**
+	 * @return the ignoredLongVar
+	 */
 	public long getIgnoredLongVar() {
 		return ignoredLongVar;
 	}
-	
+
+	/**
+	 * @param pIgnoredLongVar
+	 *            the ignoredLongVar to set
+	 */
+	public void setIgnoredLongVar(long pIgnoredLongVar) {
+		ignoredLongVar = pIgnoredLongVar;
+	}
+
 }
