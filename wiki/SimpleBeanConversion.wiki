@@ -53,5 +53,5 @@ public class ServiceBean{
  * property is a List or Set or Collection?
 
 Continue you to the next section.You will get answer one by one.
- * What 
+
   
