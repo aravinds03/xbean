@@ -1,5 +1,4 @@
 * [GettingStarted Getting Started]
-
 * How to use
   * [SimpleBeanConversion Simple Bean conversion]
   * [PropertyConversion Custom Property conversion]
