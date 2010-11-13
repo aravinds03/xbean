@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.xbean.annotations.Converter;
 import com.xbean.annotations.Convertible;
 import com.xbean.annotations.Ignore;
 import com.xbean.converters.BeanConverter;
 import com.xbean.converters.PropertyConverter;
 import com.xbean.exceptions.CannotConvertException;
+import com.xbean.util.XBeanUtils;
 
 /**
  * AnnotationBeanConverter - One way of implementing BeanConverter. This
@@ -94,35 +94,25 @@ public class AnnotationBeanConverter implements BeanConverter {
 
 	public <S, D> void convertByInstance(D targetInstance, S... pSourceInstances)
 			throws CannotConvertException {
+		convertByInstanceConverter(targetInstance,
+				new HashSet<PropertyConverter<Object, Object>>(1), pSourceInstances);
+	}
 
-		if (targetInstance == null || pSourceInstances == null) {
+	public <S, D, P extends PropertyConverter<?, ?>> void convertByInstanceConverter(
+			D pTargetInstance, Set<P> pConverterInstanceSet, S... pSourceInstances)
+			throws CannotConvertException {
+
+		if (pTargetInstance == null || pSourceInstances == null) {
 			throw new NullPointerException(
 					"One or all parameters(targetInstance,pSourceInstances) are null");
 		}
-		try {
-			Class<? extends Object> pTargetClass = targetInstance.getClass();
 
-			Field[] targetFields = pTargetClass.getDeclaredFields();
-			Map<String, String> fieldsMap = new HashMap<String, String>(targetFields.length);
-			Map<String, PropertyConverter<Object,Object>> convertorsMap = new HashMap<String, PropertyConverter<Object, Object>>(targetFields.length);
-			for (Field field : targetFields) {
-				if (field.getAnnotation(Ignore.class) != null) {
-					continue;
-				}
-				Convertible targetAnnotation = field.getAnnotation(Convertible.class);
-				String sourceFieldName = null;
-				if (targetAnnotation != null && targetAnnotation.value() != null
-						&& !targetAnnotation.value().equals("")) {
-					sourceFieldName = targetAnnotation.value();
-					fieldsMap.put(sourceFieldName, field.getName());
-				} else {
-					sourceFieldName = field.getName();
-					fieldsMap.put(sourceFieldName, field.getName());
-				}
-				if(targetAnnotation != null && targetAnnotation.convertor()!=null && targetAnnotation.convertor()!=DefaultConvertor.class) {
-					convertorsMap.put(sourceFieldName,(PropertyConverter<Object, Object>)targetAnnotation.convertor().newInstance());
-				}
-			}
+		Map<String, P> convertorsMap = XBeanUtils.createPropertyConverterMap(pConverterInstanceSet);
+
+		try {
+			Class<? extends Object> targetClass = pTargetInstance.getClass();
+
+			Map<String, String> fieldsMap = createTargetFieldsMap(targetClass);
 
 			for (S pSourceInstance : pSourceInstances) {
 
@@ -133,23 +123,21 @@ public class AnnotationBeanConverter implements BeanConverter {
 					Object targetObject = null; // to return.
 					Field targetField = null;
 
-					if (fieldsMap.keySet().contains(sourceField.getName())) {
-						targetField = pTargetClass.getDeclaredField(fieldsMap.get(sourceField
+					if (fieldsMap.containsKey(sourceField.getName())) {
+						targetField = targetClass.getDeclaredField(fieldsMap.get(sourceField
 								.getName()));
 						targetField.setAccessible(true);
 						sourceField.setAccessible(true);
 						Object sourceFieldObj = sourceField.get(pSourceInstance);
 
-						PropertyConverter<Object, Object> pConverter = null;
-						if(convertorsMap.keySet().contains(sourceField.getName())) {
-							pConverter = convertorsMap.get(sourceField.getName());
-						}
-						if (pConverter != null) {
+						String key = getConverterName(targetField);
+						if (key != null) {
+							PropertyConverter<Object, Object> pConverter = (PropertyConverter<Object, Object>) convertorsMap
+									.get(key);
 							targetObject = pConverter.convert(sourceFieldObj);
-						}
 
-						else if (sourceFieldObj instanceof List<?>) {
-							if (!(targetField.get(targetInstance) instanceof List<?>)) {
+						} else if (sourceFieldObj instanceof List<?>) {
+							if (!(targetField.get(pTargetInstance) instanceof List<?>)) {
 								System.out.println("Destination Field=" + targetField.getName()
 										+ " is not instance of List or it may be null");
 							}
@@ -162,7 +150,7 @@ public class AnnotationBeanConverter implements BeanConverter {
 								e.printStackTrace();
 							}
 						} else if (sourceField.get(pSourceInstance) instanceof Set<?>) {
-							if (!(targetField.get(targetInstance) instanceof Set<?>)) {
+							if (!(targetField.get(pTargetInstance) instanceof Set<?>)) {
 								System.out.println("Destination Field=" + targetField.getName()
 										+ " is not instance of Set or it may be null");
 							}
@@ -178,32 +166,44 @@ public class AnnotationBeanConverter implements BeanConverter {
 							targetObject = sourceFieldObj;
 						}
 
-						targetField.set(targetInstance, targetObject);
+						targetField.set(pTargetInstance, targetObject);
 					}
-
 				}
-
 			}
-
 		} catch (Exception e) {
 			throw new CannotConvertException(e);
 		}
 	}
 
-	/*
-	 * private <S> Field getAnnotatedField(Class<S> pSourceClass, Convertible
-	 * pPropertyAnn) { Field sourceField = null; try { sourceField =
-	 * pSourceClass.getDeclaredField(pPropertyAnn.alias()); } catch (Exception
-	 * e) { System.out.println("Destination field with annotation=" +
-	 * pPropertyAnn.alias() + " doesn't present in source class " +
-	 * pSourceClass); } return sourceField; }
-	 * 
-	 * private <S> Field getDefaultField(Class<S> pSourceClass, Field pField) {
-	 * Field sourceField = null; try { sourceField =
-	 * pSourceClass.getDeclaredField(pField.getName()); } catch (Exception e) {
-	 * System.out.println("Field=" + pField.getName() +
-	 * " is not present in source class" + pSourceClass); }
-	 * 
-	 * return sourceField; }
-	 */
+	private Map<String, String> createTargetFieldsMap(Class<? extends Object> pTargetClass) {
+		Field[] targetFields = pTargetClass.getDeclaredFields();
+
+		HashMap<String, String> fieldsMap = new HashMap<String, String>(targetFields.length);
+
+		for (Field field : targetFields) {
+			if (field.getAnnotation(Ignore.class) != null) {
+				continue;
+			}
+			Convertible targetAnnotation = field.getAnnotation(Convertible.class);
+			String sourceFieldName = null;
+			if (targetAnnotation != null && !XBeanUtils.isEmptyString(targetAnnotation.value())) {
+				sourceFieldName = targetAnnotation.value();
+			} else {
+				sourceFieldName = field.getName();
+			}
+			fieldsMap.put(sourceFieldName, field.getName());
+		}
+		return fieldsMap;
+	}
+
+	private String getConverterName(Field pTargetField) {
+		Convertible targetAnnotation = pTargetField.getAnnotation(Convertible.class);
+
+		if (targetAnnotation != null && targetAnnotation.convertor() != null
+				&& targetAnnotation.convertor() != DefaultConvertor.class) {
+			return targetAnnotation.convertor().getName();
+		}
+		return null;
+	}
+
 }

@@ -6,6 +6,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.xbean.converters.PropertyConverter;
 import com.xbean.converters.impl.DefaultConvertor;
 
 /**
@@ -25,11 +26,11 @@ public @interface Convertible {
 	 * @return
 	 */
 	String value() default "";
-	
+
 	/**
-	 * The converter class.
+	 * The converter class. Specify property converter implementation class.
 	 * 
 	 * @return
 	 */
-	Class<?> convertor() default DefaultConvertor.class;
+	Class<? extends PropertyConverter<?, ?>> convertor() default DefaultConvertor.class;
 }
