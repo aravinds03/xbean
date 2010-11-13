@@ -45,13 +45,52 @@ public class ServiceBean{
 = Logic of conversion =
  Internally, xbean uses reflection to do the conversion. First , it will traverse each and every field in client bean. It will try to get the field from service bean which has same name as client bean and assign the value from service bean to client bean.
 
-= Questions =
- Wait Wait. We know you are asking lot of questions in your mind.
+---
+  Wait Wait. We know you are asking lot of questions in your mind.
  What will happen if
  * property names are different?.
  * property types differ?
  * property is a List or Set or Collection?
 
-Continue you to the next section.You will get answer one by one.
+Keep reading.You will get answer one by one.
+
+= Property name matching =
+ Sometimes, property name in service bean varies with client bean.
+ For example, if you want to put property "name" from service bean to client bean which has property with name "userName", then we will mention to xbean converter using Convertible annotation as follows.
+{{{
+public class ClientBean{
+
+   *@Convertible("name")*
+   private String userName;
+}
+public class ServiceBean{
+   private String name;
+}
+}}}
+
+ Now, xbean converter knows that it should put "name" property from Service Bean to "userName" property in client bean.
+
+ _Generally,We call right side bean as destination bean(returns by converter) and left side as source bean(already existing object)._
+
+ Here,client bean is the destination bean and service bean is the source bean.
+ Remember , you can do in reverse way also, i.e , you can convert a client bean to service bean.
+
+ As you noticed, we will specify annotation's in destination bean only.Suppose you have two beans which needs conversion in both forward and backward direction, then both beans hold respective annotations which will be used appropriately based on the type of direction.
+
+= Property type =
+  If source and destination property differs by data type, then autoboxing will be applied. If it is not possible, will result in exception.
+
+= Property as a collection =
+ If property is a List,Set or Collection, then xbean converter will recursively iterate the items and apply the conversion based on generic type. For example, if property is like
+{{{
+  List<Person> personList;
+}}}
+and destination property looks like
+{{{
+  List<Employee> employeeList;
+}}}
+then,we will automatically create list of employees based on annotation mentioned in Employee class and sets it to destination bean.
+
+
 
   
