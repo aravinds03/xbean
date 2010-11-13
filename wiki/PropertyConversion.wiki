@@ -1,0 +1,7 @@
+#summary Custom Property Conversion
+
+= Converting property with different data types =
+ _TBD_
+
+= Details =
+ _TBD_
