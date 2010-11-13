@@ -45,7 +45,6 @@ public class ServiceBean{
 = Logic of conversion =
  Internally, xbean uses reflection to do the conversion. First , it will traverse each and every field in client bean. It will try to get the field from service bean which has same name as client bean and assign the value from service bean to client bean.
 
----
   Wait Wait. We know you are asking lot of questions in your mind.
  What will happen if
  * property names are different?.
@@ -60,7 +59,7 @@ Keep reading.You will get answer one by one.
 {{{
 public class ClientBean{
 
-   *@Convertible("name")*
+   @Convertible("name")
    private String userName;
 }
 public class ServiceBean{
@@ -85,11 +84,11 @@ public class ServiceBean{
 {{{
   List<Person> personList;
 }}}
-and destination property looks like
+ and destination property looks like
 {{{
   List<Employee> employeeList;
 }}}
-then,we will automatically create list of employees based on annotation mentioned in Employee class and sets it to destination bean.
+then,we will automatically create list of employees,iterate each item in personList and convert it to Employee  based on properties mentioned in Employee class and sets it to destination bean.
 
 
 
