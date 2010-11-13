@@ -4,47 +4,93 @@ import com.xbean.annotations.Convertible;
 import com.xbean.annotations.Ignore;
 
 public class ServiceBean {
+
+	private int id;
+
 	@Convertible
-	private int integer;
-	@Convertible
-	private String string;
+	private String name;
+
 	@Convertible("differentName2")
-	private int differentName1;
-	
+	private String differentName1;
+
 	private long longVar;
-	
+
 	@Ignore
 	private long ignoredLongVar;
-	
-	public int getInteger() {
-		return integer;
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
 	}
-	public void setInteger(int integer) {
-		this.integer = integer;
+
+	/**
+	 * @param pId
+	 *            the id to set
+	 */
+	public void setId(int pId) {
+		id = pId;
 	}
-	public String getString() {
-		return string;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
-	public void setString(String string) {
-		this.string = string;
+
+	/**
+	 * @param pName
+	 *            the name to set
+	 */
+	public void setName(String pName) {
+		name = pName;
 	}
-	public void setDifferentName1(int differentName1) {
-		this.differentName1 = differentName1;
-	}
-	public int getDifferentName1() {
+
+	/**
+	 * @return the differentName1
+	 */
+	public String getDifferentName1() {
 		return differentName1;
 	}
-	public void setLongVar(long longVar) {
-		this.longVar = longVar;
+
+	/**
+	 * @param pDifferentName1
+	 *            the differentName1 to set
+	 */
+	public void setDifferentName1(String pDifferentName1) {
+		differentName1 = pDifferentName1;
 	}
+
+	/**
+	 * @return the longVar
+	 */
 	public long getLongVar() {
 		return longVar;
 	}
-	public void setIgnoredLongVar(long ignoredLongVar) {
-		this.ignoredLongVar = ignoredLongVar;
+
+	/**
+	 * @param pLongVar
+	 *            the longVar to set
+	 */
+	public void setLongVar(long pLongVar) {
+		longVar = pLongVar;
 	}
+
+	/**
+	 * @return the ignoredLongVar
+	 */
 	public long getIgnoredLongVar() {
 		return ignoredLongVar;
 	}
-	
+
+	/**
+	 * @param pIgnoredLongVar
+	 *            the ignoredLongVar to set
+	 */
+	public void setIgnoredLongVar(long pIgnoredLongVar) {
+		ignoredLongVar = pIgnoredLongVar;
+	}
+
 }
