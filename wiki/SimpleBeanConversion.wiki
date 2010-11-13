@@ -1,0 +1,35 @@
+#summary Simple Bean Conversion
+
+= Client and Service Bean = 
+Let's take below client bean.
+{{{
+public class ClientBean{
+   private int id;
+   private String name;
+}
+}}}
+
+Service Bean looks like
+{{{
+public class ServiceBean{
+  private int id;
+  private String name;
+}
+}}}
+
+= Create Bean Converter =
+  Now, we are going to create bean converter which converts service bean to client bean. We can create using new operator as 
+{{{
+ BeanConverter converter = new AnnotationBeanConverter();
+}}}
+
+ If you are using spring,We can inject via spring xml like
+{{{
+ <bean id="converter" class="com.xbean.converter.impl.AnnotationBeanConverter"/>
+}}}
+
+ Now, using this converter, we are going to convert a service bean to client bean without using any getters or setters as follows.
+{{{
+ ClientBean clientBean = converter.convert(ClientBean.class,serviceBean);
+}}}
+ Here,serviceBean parameter is instance of ServiceBean class.The above method returns clientBean object which contains respective values from serviceBean object.
