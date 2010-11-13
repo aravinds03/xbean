@@ -6,6 +6,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.xbean.converters.impl.DefaultConvertor;
+
 /**
  * Use this annotation if property name in destination bean differs from source
  * bean.
@@ -24,4 +26,10 @@ public @interface Convertible {
 	 */
 	String value() default "";
 	
+	/**
+	 * The converter class.
+	 * 
+	 * @return
+	 */
+	Class<?> convertor() default DefaultConvertor.class;
 }

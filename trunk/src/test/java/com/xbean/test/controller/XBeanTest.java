@@ -1,11 +1,16 @@
 package com.xbean.test.controller;
 
+import java.util.Calendar;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.xbean.converters.PropertyConverter;
 import com.xbean.converters.impl.AnnotationBeanConverter;
 import com.xbean.test.bean.ClientBean;
 import com.xbean.test.bean.ServiceBean;
+import com.xbean.test.bean.customconvert.ClientBeanCustom;
+import com.xbean.test.bean.customconvert.ServiceBeanCustom;
 import com.xbean.test.bean.multi.CompositeClientBean;
 import com.xbean.test.bean.multi.ServiceBeanOne;
 import com.xbean.test.bean.multi.ServiceBeanTwo;
@@ -77,6 +82,31 @@ public class XBeanTest {
 		Assert.assertEquals("string2", c.getString2());
 		
 		Assert.assertEquals(null, c.getIgnoredString());
+		
+	}
+	
+	@Test
+	public void testUsingConvertor() {
+				
+		AnnotationBeanConverter annotationBeanConverter = new AnnotationBeanConverter();
+		
+		Calendar instance = Calendar.getInstance();
+		instance.set(1971, 0, 22);
+		ClientBeanCustom c = new ClientBeanCustom(123,"Hello",2500,20000000000l,888l,6777888889333l,"string",instance.getTime());
+		
+		ServiceBeanCustom convert = new ServiceBeanCustom();
+		annotationBeanConverter.convertByInstance(convert, c);
+		
+		
+		Assert.assertEquals(123,convert.getInteger());
+		Assert.assertEquals("Hello",convert.getString());
+		Assert.assertEquals(2500,convert.getDifferentName1());
+		Assert.assertEquals(20000000000l, convert.getLongVar());
+		Assert.assertEquals(0l, convert.getIgnoredLongVar());
+		Assert.assertEquals("62a19a8d9f5", convert.getHexLong());
+		Assert.assertEquals("string converted!!!!", convert.getDiffNameConvertor123());
+		//Assert.assertEquals("string converted!!!!", convert.getDiffNameConvertorAnother());
+		Assert.assertEquals("1971-01-22", convert.getDiffNameConvertorFromDate());
 		
 	}
 	
