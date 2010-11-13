@@ -104,17 +104,23 @@ public class AnnotationBeanConverter implements BeanConverter {
 
 			Field[] targetFields = pTargetClass.getDeclaredFields();
 			Map<String, String> fieldsMap = new HashMap<String, String>(targetFields.length);
+			Map<String, PropertyConverter<Object,Object>> convertorsMap = new HashMap<String, PropertyConverter<Object, Object>>(targetFields.length);
 			for (Field field : targetFields) {
 				if (field.getAnnotation(Ignore.class) != null) {
 					continue;
 				}
-				Convertible sourceAnnotation = field.getAnnotation(Convertible.class);
-
-				if (sourceAnnotation != null && sourceAnnotation.value() != null
-						&& !sourceAnnotation.value().equals("")) {
-					fieldsMap.put(sourceAnnotation.value(), field.getName());
+				Convertible targetAnnotation = field.getAnnotation(Convertible.class);
+				String sourceFieldName = null;
+				if (targetAnnotation != null && targetAnnotation.value() != null
+						&& !targetAnnotation.value().equals("")) {
+					sourceFieldName = targetAnnotation.value();
+					fieldsMap.put(sourceFieldName, field.getName());
 				} else {
-					fieldsMap.put(field.getName(), field.getName());
+					sourceFieldName = field.getName();
+					fieldsMap.put(sourceFieldName, field.getName());
+				}
+				if(targetAnnotation != null && targetAnnotation.convertor()!=null && targetAnnotation.convertor()!=DefaultConvertor.class) {
+					convertorsMap.put(sourceFieldName,(PropertyConverter<Object, Object>)targetAnnotation.convertor().newInstance());
 				}
 			}
 
@@ -134,13 +140,11 @@ public class AnnotationBeanConverter implements BeanConverter {
 						sourceField.setAccessible(true);
 						Object sourceFieldObj = sourceField.get(pSourceInstance);
 
-						Converter converter = targetField.getAnnotation(Converter.class);
-						if (converter != null) {
-							// This property must not be collection or map.
-							Field converterField = pTargetClass.getDeclaredField(converter.value());
-							converterField.setAccessible(true);
-							PropertyConverter<Object, Object> pConverter = (PropertyConverter<Object, Object>) converterField
-									.get(pTargetClass);
+						PropertyConverter<Object, Object> pConverter = null;
+						if(convertorsMap.keySet().contains(sourceField.getName())) {
+							pConverter = convertorsMap.get(sourceField.getName());
+						}
+						if (pConverter != null) {
 							targetObject = pConverter.convert(sourceFieldObj);
 						}
 
