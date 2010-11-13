@@ -1,7 +1,7 @@
 #summary Simple Bean Conversion
 
 = Client and Service Bean = 
-Let's take below client bean.
+Let's take below client bean as follows.
 {{{
 public class ClientBean{
    private int id;
@@ -9,7 +9,7 @@ public class ClientBean{
 }
 }}}
 
-Service Bean looks like
+and Service Bean looks like
 {{{
 public class ServiceBean{
   private int id;
@@ -17,8 +17,16 @@ public class ServiceBean{
 }
 }}}
 
-= Create Bean Converter =
-  Now, we are going to create bean converter which converts service bean to client bean. We can create using new operator as 
+= Without xbean =
+ Without xbean, we will convert service bean to client bean as follows.
+{{{
+  ClientBean clientBean = new ClientBean();
+  clientBean.setId(serviceBean.getId());
+  clientBean.setName(serviceBean.getName());
+}}}
+
+= With Bean Converter =
+  Now, we are going to create xbean converter which converts service bean to client bean. We can create using new operator as 
 {{{
  BeanConverter converter = new AnnotationBeanConverter();
 }}}
@@ -33,3 +41,17 @@ public class ServiceBean{
  ClientBean clientBean = converter.convert(ClientBean.class,serviceBean);
 }}}
  Here,serviceBean parameter is instance of ServiceBean class.The above method returns clientBean object which contains respective values from serviceBean object.
+
+= Logic of conversion =
+ Internally, xbean uses reflection to do the conversion. First , it will traverse each and every field in client bean. It will try to get the field from service bean which has same name as client bean and assign the value from service bean to client bean.
+
+= Questions =
+ Wait Wait. We know you are asking lot of questions in your mind.
+ What will happen if
+ * property names are different?.
+ * property types differ?
+ * property is a List or Set or Collection?
+
+Continue you to the next section.You will get answer one by one.
+ * What 
+  
