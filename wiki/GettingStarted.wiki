@@ -1,0 +1,6 @@
+#summary Getting started
+
+= What is XBean? =
+
+
+= Who needs XBean? =
