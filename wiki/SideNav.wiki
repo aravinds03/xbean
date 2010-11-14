@@ -1,6 +1,6 @@
-* [GettingStarted Getting Started]
+* [Overview Overview]
 
-* How to use
+* Getting Started
   * [SimpleBeanConversion Simple Bean conversion]
   * [PropertyConversion Custom Property conversion]
   * [MultiBeanConversion Multi Bean conversion]
