@@ -3,7 +3,7 @@
 = Converting property with different data types =
 Using xbean you can convert bean properties from one data type to another. You need to write your own [http://code.google.com/p/xbean/source/browse/trunk/src/main/java/com/xbean/converters/PropertyConverter.java PropertyConvertor] implementation.
 
-The PropertyConvertor interface:
+The [http://code.google.com/p/xbean/source/browse/trunk/src/main/java/com/xbean/converters/PropertyConverter.java PropertyConvertor] interface:
 {{{
 public interface PropertyConverter<S, D> {
   public D convert(S pObject) throws Exception;
