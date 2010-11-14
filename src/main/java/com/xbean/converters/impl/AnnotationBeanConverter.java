@@ -35,7 +35,6 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 * @see com.xbean.converters.BeanConverter#convertToList(java.util.List,
 	 * java.lang.Class)
 	 */
-	@Override
 	public <S, D> List<D> convertToList(List<S> pSourceList, Class<D> pDestination)
 			throws Exception {
 		if (pDestination == null) {
@@ -57,7 +56,6 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 * @see com.xbean.converters.BeanConverter#convertToSet(java.util.Set,
 	 * java.lang.Class)
 	 */
-	@Override
 	public <S, D> Set<D> convertToSet(Set<S> pSourceSet, Class<D> pDestination) throws Exception {
 		if (pDestination == null) {
 			throw new NullPointerException("Parameter pDestination is null");

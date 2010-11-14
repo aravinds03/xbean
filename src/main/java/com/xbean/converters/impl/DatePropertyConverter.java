@@ -7,7 +7,7 @@ import com.xbean.converters.PropertyConverter;
 
 /**
  * This is a sample convertor
- *
+ * 
  */
 public class DatePropertyConverter implements PropertyConverter<Date, String> {
 
@@ -18,7 +18,6 @@ public class DatePropertyConverter implements PropertyConverter<Date, String> {
 	 * com.oauth.common.converter.property.PropertyConverterAdapter#convert(
 	 * java.lang.Object)
 	 */
-	@Override
 	public String convert(Date pObject) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(pObject);
