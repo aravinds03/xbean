@@ -68,13 +68,22 @@ public class ServiceBean{
 }}}
 
  Now, xbean converter knows that it should put "name" property from Service Bean to "userName" property in client bean.
+In short
+{{{
+@Convertible("name")
+private String userName;
+}}}
+implies
+{{{
+clientBean.setUserName(serviceBean.getName());
+}}}
 
  _Generally,We call right side bean as destination bean(returns by converter) and left side as source bean(already existing object)._
 
  Here,client bean is the destination bean and service bean is the source bean.
  Remember , you can do in reverse way also, i.e , you can convert a client bean to service bean.
 
- As you noticed, we will specify annotation's in destination bean only.Suppose you have two beans which needs conversion in both forward and backward direction, then both beans hold respective annotations which will be used appropriately based on the type of direction.
+ As you might have noticed, *we will specify annotations in destination bean only.* Suppose you have two beans which needs conversion in both forward and backward direction, then both beans hold respective annotations which will be used appropriately based on the type of direction.
 
 = Property type =
   If source and destination property differs by data type, then autoboxing will be applied. If it is not possible, will result in exception.
