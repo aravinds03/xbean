@@ -20,8 +20,8 @@
 		<version>5</version>
 	</parent>
 	<scm>
-		<connection>scm:svn:http://xbean.googlecode.com/svn/trunk/</connection>
-		<developerConnection>scm:svn:http://xbean.googlecode.com/svn/trunk/</developerConnection>
+		<connection>scm:svn:https://xbean.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://xbean.googlecode.com/svn/trunk/</developerConnection>
 		<url>http://xbean.googlecode.com/svn/trunk/</url>
 	</scm>
 	<developers>
