@@ -1,8 +1,14 @@
 #summary Download this library
 
 = Download as jar =
-
- _TBD_
+ You can directly download the jar from *Downloads* tab.
 
 = Use Maven Repository =
- _TBD_
+ If you are using maven , you can add dependency in your pom.xml as follow
+{{{
+ <dependency>
+	<groupId>com</groupId>
+	<artifactId>xbean</artifactId>
+	<version>1.0.0</version>
+ </dependency>
+}}}
