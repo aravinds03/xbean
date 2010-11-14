@@ -1,7 +1,30 @@
 #summary Custom Property Conversion
 
 = Converting property with different data types =
- _TBD_
+Using xbean you can convert bean properties from one data type to another. You need to write your own PropertyConvertor implementation.
+
+The PropertyConvertor interface:
+{{{
+public interface PropertyConverter<S, D> {
+  public D convert(S pObject) throws Exception;
+}
+}}}
+
+To write your own custom convertor, you need to implement the convert method with the appropriate source and destination data types. 
+
+One example requirement would be write a Date to String convertor using a standard format. 
+You an write an implementation of it as:
+{{{
+public class DatePropertyConverter implements PropertyConverter<Date, String> {
+        private static final String MY_DATE_FORMAT = "yyyy-MM-dd";
+	public String convert(Date pObject) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat(MY_DATE_FORMAT);
+		return sdf.format(pObject);
+	}
+}
+}}}
+
+TBD
 
 = Details =
  _TBD_
