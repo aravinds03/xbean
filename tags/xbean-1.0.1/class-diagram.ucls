@@ -1,0 +1,52 @@
+<class-diagram version="0.9.86" automaticImage="PNG" icons="true" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <interface corner="BOTTOM_RIGHT" language="java" name="com.xbean.converters.PropertyConverter" project="xbean" 
+    file="/xbean/src/main/java/com/xbean/converters/PropertyConverter.java" binary="false">    
+    <position x="151" y="140" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <interface corner="BOTTOM_RIGHT" language="java" name="com.xbean.converters.BeanConverter" project="xbean" 
+    file="/xbean/src/main/java/com/xbean/converters/BeanConverter.java" binary="false">    
+    <position x="601" y="110" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class corner="BOTTOM_RIGHT" language="java" name="com.xbean.converters.impl.AnnotationBeanConverter" project="xbean" 
+    file="/xbean/src/main/java/com/xbean/converters/impl/AnnotationBeanConverter.java" binary="false">    
+    <position x="597" y="271" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class corner="BOTTOM_RIGHT" language="java" name="com.xbean.converters.impl.DatePropertyConverter" project="xbean" 
+    file="/xbean/src/main/java/com/xbean/converters/impl/DatePropertyConverter.java" binary="false">    
+    <position x="119" y="263" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <realization>    
+    <source project="xbean" name="com.xbean.converters.impl.AnnotationBeanConverter" 
+      file="/xbean/src/main/java/com/xbean/converters/impl/AnnotationBeanConverter.java" binary="false"/>    
+    <target project="xbean" name="com.xbean.converters.BeanConverter" 
+      file="/xbean/src/main/java/com/xbean/converters/BeanConverter.java" binary="false"/>  
+  </realization>  
+  <realization>    
+    <source project="xbean" name="com.xbean.converters.impl.DatePropertyConverter" 
+      file="/xbean/src/main/java/com/xbean/converters/impl/DatePropertyConverter.java" binary="false"/>    
+    <target project="xbean" name="com.xbean.converters.PropertyConverter" 
+      file="/xbean/src/main/java/com/xbean/converters/PropertyConverter.java" binary="false"/>  
+  </realization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
