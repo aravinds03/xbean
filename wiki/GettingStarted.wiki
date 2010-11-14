@@ -1,6 +1,11 @@
 #summary Getting started
 
-= What is XBean? =
+In multi tier web application, we often used to write code to convert service beans to client beans and vice versa. For example: 
+{{{
+bean1.setId(bean2.getId());
+bean1.setName(bean2.getName());
+}}}
 
+ Though we have third party libraries available to do this job, we don't have any library which makes us to do the conversion easily with flexible options.The aim of this project is to basically automate those conversions with as easy as possible using annotation.
 
-= Who needs XBean? =
+Go to [SimpleBeanConversion Simple Bean conversion] to see how xbean works.
