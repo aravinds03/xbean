@@ -1,7 +1,7 @@
 #summary Custom Property Conversion
 
 = Converting property with different data types =
-Using xbean you can convert bean properties from one data type to another. You need to write your own PropertyConvertor implementation.
+Using xbean you can convert bean properties from one data type to another. You need to write your own [http://code.google.com/p/xbean/source/browse/trunk/src/main/java/com/xbean/converters/PropertyConverter.java PropertyConvertor] implementation.
 
 The PropertyConvertor interface:
 {{{
@@ -24,7 +24,18 @@ public class DatePropertyConverter implements PropertyConverter<Date, String> {
 }
 }}}
 
-TBD
+Then use it in your destination bean as
+{{{
+@Convertible(value = "startDate", convertor = DatePropertyConverter.class)
+private String startDateStr;
+}}}
+
+This is equivalent to 
+{{{
+SimpleDateFormat sdf = new SimpleDateFormat(MY_DATE_FORMAT);
+destinationBean.setStartDateStr(sdf.format(sourceBean.getStartDate()));
+}}}
 
 = Details =
- _TBD_
+You can see an example in our test class
+http://code.google.com/p/xbean/source/browse/#svn/trunk/src/test/java/com/xbean/converters/impl
