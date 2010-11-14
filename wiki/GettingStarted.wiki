@@ -1,11 +1,21 @@
 #summary Getting started
 
-In multi tier web application, we often used to write code to convert service beans to client beans and vice versa. For example: 
+In a multi tiered web application, we often used to write code to convert service beans to 
+client beans and vice versa. For example: 
+
 {{{
 bean1.setId(bean2.getId());
 bean1.setName(bean2.getName());
+bean1.setDateStr((new SimpleDateFormat("yyyy-MM-dd")).format(bean2.getDate());
+.....
 }}}
 
- Though we have third party libraries available to do this job, we don't have any library which makes us to do the conversion easily with flexible options.The aim of this project is to basically automate those conversions with as easy as possible using annotation.
+This can be clumsy and might occupy more space than the actual business logic in the code. The goal of this project is make these bean conversions easy and clean way. All the above lines can be combined to a single line with xbean:
+
+{{{
+xBeanConverter.convertByInstance(bean1, bean2);
+}}}
+
+Though we have third party libraries available to do this job, we don't have any library which makes us to do the conversion easily with flexible options.The aim of this project is to basically automate those conversions with as easy as possible using Java annotations.
 
 Go to [SimpleBeanConversion Simple Bean conversion] to see how xbean works.
