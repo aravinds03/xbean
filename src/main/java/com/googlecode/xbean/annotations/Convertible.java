@@ -1,4 +1,4 @@
-package com.xbean.annotations;
+package com.googlecode.xbean.annotations;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -6,8 +6,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.xbean.converters.PropertyConverter;
-import com.xbean.converters.impl.DefaultConvertor;
+import com.googlecode.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.converters.impl.DefaultConvertor;
 
 /**
  * Use this annotation if property name in destination bean differs from source
@@ -24,7 +24,7 @@ public @interface Convertible {
 	/**
 	 * String represents the property name from the source bean.
 	 * 
-	
+	 * 
 	 * @return String
 	 */
 	String value() default "";
@@ -32,7 +32,7 @@ public @interface Convertible {
 	/**
 	 * The converter class. Specify property converter implementation class.
 	 * 
-	
+	 * 
 	 * @return Class<? extends PropertyConverter<?,?>>
 	 */
 	Class<? extends PropertyConverter<?, ?>> convertor() default DefaultConvertor.class;
@@ -41,7 +41,7 @@ public @interface Convertible {
 	 * if true, assumes the property type is user defined bean and applies the
 	 * conversion automatically.
 	 * 
-	
+	 * 
 	 * @return boolean
 	 */
 	boolean auto() default false;

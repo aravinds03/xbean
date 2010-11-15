@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.xbean.util;
+package com.googlecode.xbean.util;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -9,9 +9,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.xbean.annotations.Convertible;
-import com.xbean.annotations.Ignore;
-import com.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.annotations.Convertible;
+import com.googlecode.xbean.annotations.Ignore;
+import com.googlecode.xbean.converters.PropertyConverter;
 
 /**
  * @author asanthan
@@ -22,7 +22,10 @@ public class XBeanUtils {
 
 	/**
 	 * Method createPropertyConverterMap.
-	 * @param pConverterInstanceSet Set<P>
+	 * 
+	 * @param pConverterInstanceSet
+	 *            Set
+	 *            <P>
 	 * @return Map<String,P>
 	 */
 	public static <P extends PropertyConverter<?, ?>> Map<String, P> createPropertyConverterMap(
@@ -40,7 +43,9 @@ public class XBeanUtils {
 
 	/**
 	 * Method createTargetFieldsMap.
-	 * @param pTargetClass Class<? extends Object>
+	 * 
+	 * @param pTargetClass
+	 *            Class<? extends Object>
 	 * @return Map<String,String>
 	 */
 	public static Map<String, String> createTargetFieldsMap(Class<? extends Object> pTargetClass) {
@@ -66,7 +71,9 @@ public class XBeanUtils {
 
 	/**
 	 * Method isEmptyString.
-	 * @param pString String
+	 * 
+	 * @param pString
+	 *            String
 	 * @return boolean
 	 */
 	public static boolean isEmptyString(String pString) {

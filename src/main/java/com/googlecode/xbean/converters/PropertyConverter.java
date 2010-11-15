@@ -1,4 +1,4 @@
-package com.xbean.converters;
+package com.googlecode.xbean.converters;
 
 /**
  * Interface for property converter's. Implement this interface to define your
@@ -10,8 +10,8 @@ package com.xbean.converters;
  * 
  * @author asanthan
  * 
-
-
+ * 
+ * 
  * @version $Revision: 1.0 $
  */
 public interface PropertyConverter<S, D> {
@@ -21,8 +21,9 @@ public interface PropertyConverter<S, D> {
 	 * 
 	 * @param pObject
 	 *            - source object to convert.
-	
-	
-	 * @return D - return the converted object. * @throws Exception */
+	 * 
+	 * 
+	 * @return D - return the converted object. * @throws Exception
+	 */
 	public D convert(S pObject) throws Exception;
 }

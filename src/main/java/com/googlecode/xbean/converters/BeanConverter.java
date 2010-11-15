@@ -1,9 +1,9 @@
-package com.xbean.converters;
+package com.googlecode.xbean.converters;
 
 import java.util.List;
 import java.util.Set;
 
-import com.xbean.exceptions.CannotConvertException;
+import com.googlecode.xbean.exceptions.CannotConvertException;
 
 /**
  * Interface which declares method that are required for bean conversion.

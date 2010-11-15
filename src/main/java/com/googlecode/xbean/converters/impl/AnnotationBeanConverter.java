@@ -1,4 +1,4 @@
-package com.xbean.converters.impl;
+package com.googlecode.xbean.converters.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.xbean.annotations.Convertible;
-import com.xbean.converters.BeanConverter;
-import com.xbean.converters.PropertyConverter;
-import com.xbean.exceptions.CannotConvertException;
-import com.xbean.util.XBeanUtils;
+import com.googlecode.xbean.annotations.Convertible;
+import com.googlecode.xbean.converters.BeanConverter;
+import com.googlecode.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.exceptions.CannotConvertException;
+import com.googlecode.xbean.util.XBeanUtils;
 
 /**
  * AnnotationBeanConverter - One way of implementing BeanConverter. This

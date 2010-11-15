@@ -1,9 +1,9 @@
-package com.xbean.converters.impl;
+package com.googlecode.xbean.converters.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.converters.PropertyConverter;
 
 /**
  * This is a sample convertor
@@ -22,7 +22,9 @@ public class DatePropertyConverter implements PropertyConverter<Date, String> {
 	 */
 	/**
 	 * Method convert.
-	 * @param pObject Date
+	 * 
+	 * @param pObject
+	 *            Date
 	 * @return String
 	 * @throws Exception
 	 */
