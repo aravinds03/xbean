@@ -1,4 +1,4 @@
-package com.xbean.exceptions;
+package com.googlecode.xbean.exceptions;
 
 /**
  * Custom exception to throw during conversion process.
@@ -11,7 +11,9 @@ public class CannotConvertException extends RuntimeException {
 
 	/**
 	 * Constructor for CannotConvertException.
-	 * @param e Throwable
+	 * 
+	 * @param e
+	 *            Throwable
 	 */
 	public CannotConvertException(Throwable e) {
 		super(e);

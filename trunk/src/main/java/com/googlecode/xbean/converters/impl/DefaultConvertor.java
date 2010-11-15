@@ -1,6 +1,6 @@
-package com.xbean.converters.impl;
+package com.googlecode.xbean.converters.impl;
 
-import com.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.converters.PropertyConverter;
 
 /**
  * This is just a default convertor which does nothing. Since the annotation
@@ -14,7 +14,9 @@ public class DefaultConvertor implements PropertyConverter<Object, Object> {
 
 	/**
 	 * Method convert.
-	 * @param object Object
+	 * 
+	 * @param object
+	 *            Object
 	 * @return Object
 	 * @throws Exception
 	 */
