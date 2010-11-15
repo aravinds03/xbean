@@ -3,7 +3,7 @@ package com.xbean.test.bean.collection;
 import java.util.List;
 import java.util.Set;
 
-import com.xbean.annotations.Convertible;
+import com.googlecode.xbean.annotations.Convertible;
 import com.xbean.test.bean.ServiceBean;
 
 public class CollectionServiceBean {

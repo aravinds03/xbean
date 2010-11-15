@@ -1,7 +1,7 @@
 package com.xbean.test.bean;
 
-import com.xbean.annotations.Convertible;
-import com.xbean.annotations.Ignore;
+import com.googlecode.xbean.annotations.Convertible;
+import com.googlecode.xbean.annotations.Ignore;
 
 public class ServiceBean {
 

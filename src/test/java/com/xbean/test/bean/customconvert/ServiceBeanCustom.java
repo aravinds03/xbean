@@ -1,8 +1,8 @@
 package com.xbean.test.bean.customconvert;
 
-import com.xbean.annotations.Convertible;
-import com.xbean.annotations.Ignore;
-import com.xbean.converters.impl.DatePropertyConverter;
+import com.googlecode.xbean.annotations.Convertible;
+import com.googlecode.xbean.annotations.Ignore;
+import com.googlecode.xbean.converters.impl.DatePropertyConverter;
 import com.xbean.test.AppendConvertor;
 import com.xbean.test.HexConvertor;
 

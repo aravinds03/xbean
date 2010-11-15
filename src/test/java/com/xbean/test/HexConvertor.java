@@ -1,6 +1,6 @@
 package com.xbean.test;
 
-import com.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.converters.PropertyConverter;
 
 public class HexConvertor implements PropertyConverter<Long, String> {
 
