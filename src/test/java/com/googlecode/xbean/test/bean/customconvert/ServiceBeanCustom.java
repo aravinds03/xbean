@@ -1,10 +1,10 @@
-package com.xbean.test.bean.customconvert;
+package com.googlecode.xbean.test.bean.customconvert;
 
 import com.googlecode.xbean.annotations.Convertible;
 import com.googlecode.xbean.annotations.Ignore;
 import com.googlecode.xbean.converters.impl.DatePropertyConverter;
-import com.xbean.test.AppendConvertor;
-import com.xbean.test.HexConvertor;
+import com.googlecode.xbean.test.AppendConvertor;
+import com.googlecode.xbean.test.HexConvertor;
 
 public class ServiceBeanCustom {
 

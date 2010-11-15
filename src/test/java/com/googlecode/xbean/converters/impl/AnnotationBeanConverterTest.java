@@ -1,21 +1,21 @@
-package com.xbean.converters.impl;
+package com.googlecode.xbean.converters.impl;
 
-import static com.xbean.test.factory.ConverterBeanFactory.newClientBeanCustom;
-import static com.xbean.test.factory.FactoryConstants.DATE_FORMAT;
-import static com.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
-import static com.xbean.test.factory.FactoryConstants.DIFFERNT_NAME1;
-import static com.xbean.test.factory.FactoryConstants.DIFFERNT_NAME3;
-import static com.xbean.test.factory.FactoryConstants.HEX_STRING;
-import static com.xbean.test.factory.FactoryConstants.ID;
-import static com.xbean.test.factory.FactoryConstants.ID2;
-import static com.xbean.test.factory.FactoryConstants.IGNORED_LONG_VAR;
-import static com.xbean.test.factory.FactoryConstants.LONG_VAR;
-import static com.xbean.test.factory.FactoryConstants.NAME;
-import static com.xbean.test.factory.FactoryConstants.SOME_STRING;
-import static com.xbean.test.factory.FactoryConstants.STRING2;
-import static com.xbean.test.factory.MultiBeanFactory.newServiceBean1;
-import static com.xbean.test.factory.MultiBeanFactory.newServiceBean2;
-import static com.xbean.test.factory.SingleBeanFactory.newClientBean;
+import static com.googlecode.xbean.test.factory.ConverterBeanFactory.newClientBeanCustom;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DATE_FORMAT;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME1;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME3;
+import static com.googlecode.xbean.test.factory.FactoryConstants.HEX_STRING;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ID;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ID2;
+import static com.googlecode.xbean.test.factory.FactoryConstants.IGNORED_LONG_VAR;
+import static com.googlecode.xbean.test.factory.FactoryConstants.LONG_VAR;
+import static com.googlecode.xbean.test.factory.FactoryConstants.NAME;
+import static com.googlecode.xbean.test.factory.FactoryConstants.SOME_STRING;
+import static com.googlecode.xbean.test.factory.FactoryConstants.STRING2;
+import static com.googlecode.xbean.test.factory.MultiBeanFactory.newServiceBean1;
+import static com.googlecode.xbean.test.factory.MultiBeanFactory.newServiceBean2;
+import static com.googlecode.xbean.test.factory.SingleBeanFactory.newClientBean;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,17 +26,15 @@ import org.junit.Test;
 
 import com.googlecode.xbean.converters.BeanConverter;
 import com.googlecode.xbean.converters.PropertyConverter;
-import com.googlecode.xbean.converters.impl.AnnotationBeanConverter;
-import com.googlecode.xbean.converters.impl.DatePropertyConverter;
-import com.xbean.test.AppendConvertor;
-import com.xbean.test.HexConvertor;
-import com.xbean.test.bean.ClientBean;
-import com.xbean.test.bean.ServiceBean;
-import com.xbean.test.bean.collection.CollectionClientBean;
-import com.xbean.test.bean.collection.CollectionServiceBean;
-import com.xbean.test.bean.customconvert.ServiceBeanCustom;
-import com.xbean.test.bean.multi.CompositeClientBean;
-import com.xbean.test.factory.CollectionBeanFactory;
+import com.googlecode.xbean.test.AppendConvertor;
+import com.googlecode.xbean.test.HexConvertor;
+import com.googlecode.xbean.test.bean.ClientBean;
+import com.googlecode.xbean.test.bean.ServiceBean;
+import com.googlecode.xbean.test.bean.collection.CollectionClientBean;
+import com.googlecode.xbean.test.bean.collection.CollectionServiceBean;
+import com.googlecode.xbean.test.bean.customconvert.ServiceBeanCustom;
+import com.googlecode.xbean.test.bean.multi.CompositeClientBean;
+import com.googlecode.xbean.test.factory.CollectionBeanFactory;
 
 public class AnnotationBeanConverterTest {
 

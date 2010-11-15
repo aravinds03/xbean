@@ -1,16 +1,16 @@
-package com.xbean.test.factory;
+package com.googlecode.xbean.test.factory;
 
-import static com.xbean.test.factory.FactoryConstants.ACTUAL_LONG_VAR;
-import static com.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
-import static com.xbean.test.factory.FactoryConstants.HEX_LONG_VAR;
-import static com.xbean.test.factory.FactoryConstants.ID;
-import static com.xbean.test.factory.FactoryConstants.LONG_VAR;
-import static com.xbean.test.factory.FactoryConstants.NAME;
-import static com.xbean.test.factory.FactoryConstants.STRING;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ACTUAL_LONG_VAR;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
+import static com.googlecode.xbean.test.factory.FactoryConstants.HEX_LONG_VAR;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ID;
+import static com.googlecode.xbean.test.factory.FactoryConstants.LONG_VAR;
+import static com.googlecode.xbean.test.factory.FactoryConstants.NAME;
+import static com.googlecode.xbean.test.factory.FactoryConstants.STRING;
 
 import java.util.Calendar;
 
-import com.xbean.test.bean.customconvert.ClientBeanCustom;
+import com.googlecode.xbean.test.bean.customconvert.ClientBeanCustom;
 
 public class ConverterBeanFactory {
 

@@ -1,4 +1,4 @@
-package com.xbean.test.bean.multi;
+package com.googlecode.xbean.test.bean.multi;
 
 public class ServiceBeanOne {
 	private int id;

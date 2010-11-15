@@ -1,12 +1,12 @@
-package com.xbean.test.factory;
+package com.googlecode.xbean.test.factory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.xbean.test.bean.ClientBean;
-import com.xbean.test.bean.collection.CollectionClientBean;
+import com.googlecode.xbean.test.bean.ClientBean;
+import com.googlecode.xbean.test.bean.collection.CollectionClientBean;
 
 public class CollectionBeanFactory {
 

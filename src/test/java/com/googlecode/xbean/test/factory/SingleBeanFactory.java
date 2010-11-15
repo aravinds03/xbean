@@ -1,12 +1,12 @@
-package com.xbean.test.factory;
+package com.googlecode.xbean.test.factory;
 
-import static com.xbean.test.factory.FactoryConstants.ACTUAL_LONG_VAR;
-import static com.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
-import static com.xbean.test.factory.FactoryConstants.ID;
-import static com.xbean.test.factory.FactoryConstants.LONG_VAR;
-import static com.xbean.test.factory.FactoryConstants.NAME;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ACTUAL_LONG_VAR;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ID;
+import static com.googlecode.xbean.test.factory.FactoryConstants.LONG_VAR;
+import static com.googlecode.xbean.test.factory.FactoryConstants.NAME;
 
-import com.xbean.test.bean.ClientBean;
+import com.googlecode.xbean.test.bean.ClientBean;
 
 public class SingleBeanFactory {
 

@@ -1,4 +1,4 @@
-package com.xbean.test.bean.customconvert;
+package com.googlecode.xbean.test.bean.customconvert;
 
 import java.util.Date;
 

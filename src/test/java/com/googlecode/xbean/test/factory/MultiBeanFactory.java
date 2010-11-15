@@ -1,15 +1,15 @@
-package com.xbean.test.factory;
+package com.googlecode.xbean.test.factory;
 
-import static com.xbean.test.factory.FactoryConstants.DIFFERNT_NAME1;
-import static com.xbean.test.factory.FactoryConstants.DIFFERNT_NAME3;
-import static com.xbean.test.factory.FactoryConstants.ID;
-import static com.xbean.test.factory.FactoryConstants.ID2;
-import static com.xbean.test.factory.FactoryConstants.IGNORED_STRING;
-import static com.xbean.test.factory.FactoryConstants.SOME_STRING;
-import static com.xbean.test.factory.FactoryConstants.STRING2;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME1;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME3;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ID;
+import static com.googlecode.xbean.test.factory.FactoryConstants.ID2;
+import static com.googlecode.xbean.test.factory.FactoryConstants.IGNORED_STRING;
+import static com.googlecode.xbean.test.factory.FactoryConstants.SOME_STRING;
+import static com.googlecode.xbean.test.factory.FactoryConstants.STRING2;
 
-import com.xbean.test.bean.multi.ServiceBeanOne;
-import com.xbean.test.bean.multi.ServiceBeanTwo;
+import com.googlecode.xbean.test.bean.multi.ServiceBeanOne;
+import com.googlecode.xbean.test.bean.multi.ServiceBeanTwo;
 
 public class MultiBeanFactory {
 	public static ServiceBeanOne newServiceBean1() {
