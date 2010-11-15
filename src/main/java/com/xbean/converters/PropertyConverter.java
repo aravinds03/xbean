@@ -10,10 +10,9 @@ package com.xbean.converters;
  * 
  * @author asanthan
  * 
- * @param <S>
- *            - Source property type.
- * @param <D>
- *            - Destination property type.
+
+
+ * @version $Revision: 1.0 $
  */
 public interface PropertyConverter<S, D> {
 
@@ -22,8 +21,8 @@ public interface PropertyConverter<S, D> {
 	 * 
 	 * @param pObject
 	 *            - source object to convert.
-	 * @return D - return the converted object.
-	 * @throws Exception
-	 */
+	
+	
+	 * @return D - return the converted object. * @throws Exception */
 	public D convert(S pObject) throws Exception;
 }
