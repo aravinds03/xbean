@@ -24,6 +24,7 @@ import com.xbean.util.XBeanUtils;
  * 
  * @author Aravind (aravinds86@gmail.com), Pradeep (mitecepradeep@gmail.com).
  * 
+ * @version $Revision: 1.0 $
  */
 public class AnnotationBeanConverter implements BeanConverter {
 
@@ -88,12 +89,37 @@ public class AnnotationBeanConverter implements BeanConverter {
 		return targetInstance;
 	}
 
+	/**
+	 * Method convertByInstance.
+	 * 
+	 * @param targetInstance
+	 *            D
+	 * @param pSourceInstances
+	 *            S[]
+	 * @throws CannotConvertException
+	 * @see com.xbean.converters.BeanConverter#convertByInstance(D, S[])
+	 */
 	public <S, D> void convertByInstance(D targetInstance, S... pSourceInstances)
 			throws CannotConvertException {
 		convertByInstanceConverter(targetInstance,
 				new HashSet<PropertyConverter<Object, Object>>(1), pSourceInstances);
 	}
 
+	/**
+	 * Method convertByInstanceConverter.
+	 * 
+	 * @param pTargetInstance
+	 *            D
+	 * @param pConverterInstanceSet
+	 *            Set
+	 *            <P>
+	 * @param pSourceInstances
+	 *            S[]
+	 * @throws CannotConvertException
+	 * @see com.xbean.converters.BeanConverter#convertByInstanceConverter(D, Set
+	 *      <P>
+	 *      , S[])
+	 */
 	public <S, D, P extends PropertyConverter<?, ?>> void convertByInstanceConverter(
 			D pTargetInstance, Set<P> pConverterInstanceSet, S... pSourceInstances)
 			throws CannotConvertException {
@@ -167,11 +193,27 @@ public class AnnotationBeanConverter implements BeanConverter {
 		}
 	}
 
+	/**
+	 * Method isAutoAvailable.
+	 * 
+	 * @param pTargetField
+	 *            Field
+	 * @return boolean -true if the target field has annotation Convertible
+	 *         whose auto property is set to true.
+	 */
 	private boolean isAutoAvailable(Field pTargetField) {
 		Convertible targetAnnotation = pTargetField.getAnnotation(Convertible.class);
 		return targetAnnotation != null && targetAnnotation.auto();
 	}
 
+	/**
+	 * Method getConverterClassName.
+	 * 
+	 * @param pTargetField
+	 *            Field
+	 * @return String - Returns property converter class name if available, else
+	 *         null.
+	 */
 	private String getConverterClassName(Field pTargetField) {
 		Convertible targetAnnotation = pTargetField.getAnnotation(Convertible.class);
 

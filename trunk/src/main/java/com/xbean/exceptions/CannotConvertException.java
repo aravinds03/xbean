@@ -5,9 +5,14 @@ package com.xbean.exceptions;
  * 
  * @author asanthan
  * 
+ * @version $Revision: 1.0 $
  */
 public class CannotConvertException extends RuntimeException {
 
+	/**
+	 * Constructor for CannotConvertException.
+	 * @param e Throwable
+	 */
 	public CannotConvertException(Throwable e) {
 		super(e);
 	}

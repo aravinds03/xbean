@@ -16,9 +16,15 @@ import com.xbean.converters.PropertyConverter;
 /**
  * @author asanthan
  * 
+ * @version $Revision: 1.0 $
  */
 public class XBeanUtils {
 
+	/**
+	 * Method createPropertyConverterMap.
+	 * @param pConverterInstanceSet Set<P>
+	 * @return Map<String,P>
+	 */
 	public static <P extends PropertyConverter<?, ?>> Map<String, P> createPropertyConverterMap(
 			Set<P> pConverterInstanceSet) {
 		if (pConverterInstanceSet == null) {
@@ -32,6 +38,11 @@ public class XBeanUtils {
 		return converterMap;
 	}
 
+	/**
+	 * Method createTargetFieldsMap.
+	 * @param pTargetClass Class<? extends Object>
+	 * @return Map<String,String>
+	 */
 	public static Map<String, String> createTargetFieldsMap(Class<? extends Object> pTargetClass) {
 		Field[] targetFields = pTargetClass.getDeclaredFields();
 
@@ -53,6 +64,11 @@ public class XBeanUtils {
 		return fieldsMap;
 	}
 
+	/**
+	 * Method isEmptyString.
+	 * @param pString String
+	 * @return boolean
+	 */
 	public static boolean isEmptyString(String pString) {
 		return pString == null || pString.trim().equals("");
 	}

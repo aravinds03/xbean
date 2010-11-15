@@ -15,6 +15,7 @@ import com.xbean.converters.impl.DefaultConvertor;
  * 
  * @author asanthan
  * 
+ * @version $Revision: 1.0.2 $
  */
 @Retention(RUNTIME)
 @Target(FIELD)
@@ -23,14 +24,16 @@ public @interface Convertible {
 	/**
 	 * String represents the property name from the source bean.
 	 * 
-	 * @return
+	
+	 * @return String
 	 */
 	String value() default "";
 
 	/**
 	 * The converter class. Specify property converter implementation class.
 	 * 
-	 * @return
+	
+	 * @return Class<? extends PropertyConverter<?,?>>
 	 */
 	Class<? extends PropertyConverter<?, ?>> convertor() default DefaultConvertor.class;
 
@@ -38,7 +41,8 @@ public @interface Convertible {
 	 * if true, assumes the property type is user defined bean and applies the
 	 * conversion automatically.
 	 * 
-	 * @return
+	
+	 * @return boolean
 	 */
 	boolean auto() default false;
 }

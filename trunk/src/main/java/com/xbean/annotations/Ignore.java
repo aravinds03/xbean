@@ -12,6 +12,7 @@ import java.lang.annotation.Target;
  * 
  * @author asanthan
  * 
+ * @version $Revision: 1.0 $
  */
 @Retention(RUNTIME)
 @Target(FIELD)
