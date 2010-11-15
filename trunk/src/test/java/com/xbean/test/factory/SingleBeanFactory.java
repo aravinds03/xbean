@@ -19,4 +19,5 @@ public class SingleBeanFactory {
 		c.setIgnoredLongVar(ACTUAL_LONG_VAR);
 		return c;
 	}
+
 }

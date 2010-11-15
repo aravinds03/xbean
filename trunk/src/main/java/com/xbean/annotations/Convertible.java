@@ -33,4 +33,12 @@ public @interface Convertible {
 	 * @return
 	 */
 	Class<? extends PropertyConverter<?, ?>> convertor() default DefaultConvertor.class;
+
+	/**
+	 * if true, assumes the property type is user defined bean and applies the
+	 * conversion automatically.
+	 * 
+	 * @return
+	 */
+	boolean auto() default false;
 }

@@ -3,11 +3,14 @@
  */
 package com.xbean.util;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.xbean.annotations.Convertible;
+import com.xbean.annotations.Ignore;
 import com.xbean.converters.PropertyConverter;
 
 /**
@@ -29,7 +32,28 @@ public class XBeanUtils {
 		return converterMap;
 	}
 
+	public static Map<String, String> createTargetFieldsMap(Class<? extends Object> pTargetClass) {
+		Field[] targetFields = pTargetClass.getDeclaredFields();
+
+		HashMap<String, String> fieldsMap = new HashMap<String, String>(targetFields.length);
+
+		for (Field field : targetFields) {
+			if (field.getAnnotation(Ignore.class) != null) {
+				continue;
+			}
+			Convertible targetAnnotation = field.getAnnotation(Convertible.class);
+			String sourceFieldName = null;
+			if (targetAnnotation != null && !XBeanUtils.isEmptyString(targetAnnotation.value())) {
+				sourceFieldName = targetAnnotation.value();
+			} else {
+				sourceFieldName = field.getName();
+			}
+			fieldsMap.put(sourceFieldName, field.getName());
+		}
+		return fieldsMap;
+	}
+
 	public static boolean isEmptyString(String pString) {
-		return pString == null || pString.equals("") || pString.trim().equals("");
+		return pString == null || pString.trim().equals("");
 	}
 }
