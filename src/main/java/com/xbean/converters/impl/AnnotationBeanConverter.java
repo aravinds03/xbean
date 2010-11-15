@@ -3,14 +3,12 @@ package com.xbean.converters.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.xbean.annotations.Convertible;
-import com.xbean.annotations.Ignore;
 import com.xbean.converters.BeanConverter;
 import com.xbean.converters.PropertyConverter;
 import com.xbean.exceptions.CannotConvertException;
@@ -110,17 +108,16 @@ public class AnnotationBeanConverter implements BeanConverter {
 		try {
 			Class<? extends Object> targetClass = pTargetInstance.getClass();
 
-			Map<String, String> fieldsMap = createTargetFieldsMap(targetClass);
+			Map<String, String> fieldsMap = XBeanUtils.createTargetFieldsMap(targetClass);
 
 			for (S pSourceInstance : pSourceInstances) {
 
-				Class<? extends Object> sourceClass = pSourceInstance.getClass();
+				Field[] sourceFields = pSourceInstance.getClass().getDeclaredFields();
 
-				Field[] sourceFields = sourceClass.getDeclaredFields();
 				for (Field sourceField : sourceFields) {
 					Object targetObject = null; // to return.
 					Field targetField = null;
-
+					String key = null;
 					if (fieldsMap.containsKey(sourceField.getName())) {
 						targetField = targetClass.getDeclaredField(fieldsMap.get(sourceField
 								.getName()));
@@ -128,17 +125,18 @@ public class AnnotationBeanConverter implements BeanConverter {
 						sourceField.setAccessible(true);
 						Object sourceFieldObj = sourceField.get(pSourceInstance);
 
-						String key = getConverterName(targetField);
-						if (key != null) {
+						// check auto property.
+						if (isAutoAvailable(targetField)) {
+							targetObject = convert(targetField.getType(), sourceFieldObj);
+						}
+
+						// check custom converter property.
+						else if ((key = getConverterClassName(targetField)) != null) {
 							PropertyConverter<Object, Object> pConverter = (PropertyConverter<Object, Object>) convertorsMap
 									.get(key);
 							targetObject = pConverter.convert(sourceFieldObj);
 
 						} else if (sourceFieldObj instanceof List<?>) {
-							if (!(targetField.get(pTargetInstance) instanceof List<?>)) {
-								System.out.println("Destination Field=" + targetField.getName()
-										+ " is not instance of List or it may be null");
-							}
 							try {
 								ParameterizedType dparamType = (ParameterizedType) targetField
 										.getGenericType();
@@ -148,10 +146,6 @@ public class AnnotationBeanConverter implements BeanConverter {
 								e.printStackTrace();
 							}
 						} else if (sourceField.get(pSourceInstance) instanceof Set<?>) {
-							if (!(targetField.get(pTargetInstance) instanceof Set<?>)) {
-								System.out.println("Destination Field=" + targetField.getName()
-										+ " is not instance of Set or it may be null");
-							}
 							try {
 								ParameterizedType dparamType = (ParameterizedType) targetField
 										.getGenericType();
@@ -173,28 +167,12 @@ public class AnnotationBeanConverter implements BeanConverter {
 		}
 	}
 
-	private Map<String, String> createTargetFieldsMap(Class<? extends Object> pTargetClass) {
-		Field[] targetFields = pTargetClass.getDeclaredFields();
-
-		HashMap<String, String> fieldsMap = new HashMap<String, String>(targetFields.length);
-
-		for (Field field : targetFields) {
-			if (field.getAnnotation(Ignore.class) != null) {
-				continue;
-			}
-			Convertible targetAnnotation = field.getAnnotation(Convertible.class);
-			String sourceFieldName = null;
-			if (targetAnnotation != null && !XBeanUtils.isEmptyString(targetAnnotation.value())) {
-				sourceFieldName = targetAnnotation.value();
-			} else {
-				sourceFieldName = field.getName();
-			}
-			fieldsMap.put(sourceFieldName, field.getName());
-		}
-		return fieldsMap;
+	private boolean isAutoAvailable(Field pTargetField) {
+		Convertible targetAnnotation = pTargetField.getAnnotation(Convertible.class);
+		return targetAnnotation != null && targetAnnotation.auto();
 	}
 
-	private String getConverterName(Field pTargetField) {
+	private String getConverterClassName(Field pTargetField) {
 		Convertible targetAnnotation = pTargetField.getAnnotation(Convertible.class);
 
 		if (targetAnnotation != null && targetAnnotation.convertor() != null
