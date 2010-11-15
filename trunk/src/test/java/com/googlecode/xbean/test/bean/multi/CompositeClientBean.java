@@ -1,4 +1,4 @@
-package com.xbean.test.bean.multi;
+package com.googlecode.xbean.test.bean.multi;
 
 import com.googlecode.xbean.annotations.Convertible;
 import com.googlecode.xbean.annotations.Ignore;

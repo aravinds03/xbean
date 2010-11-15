@@ -1,9 +1,9 @@
-package com.xbean.test.bean.collection;
+package com.googlecode.xbean.test.bean.collection;
 
 import java.util.List;
 import java.util.Set;
 
-import com.xbean.test.bean.ClientBean;
+import com.googlecode.xbean.test.bean.ClientBean;
 
 public class CollectionClientBean {
 

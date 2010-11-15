@@ -1,10 +1,10 @@
-package com.xbean.test.bean.collection;
+package com.googlecode.xbean.test.bean.collection;
 
 import java.util.List;
 import java.util.Set;
 
 import com.googlecode.xbean.annotations.Convertible;
-import com.xbean.test.bean.ServiceBean;
+import com.googlecode.xbean.test.bean.ServiceBean;
 
 public class CollectionServiceBean {
 

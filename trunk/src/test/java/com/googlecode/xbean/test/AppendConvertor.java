@@ -1,4 +1,4 @@
-package com.xbean.test;
+package com.googlecode.xbean.test;
 
 import com.googlecode.xbean.converters.PropertyConverter;
 

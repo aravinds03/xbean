@@ -1,4 +1,4 @@
-package com.xbean.test.factory;
+package com.googlecode.xbean.test.factory;
 
 public class FactoryConstants {
 

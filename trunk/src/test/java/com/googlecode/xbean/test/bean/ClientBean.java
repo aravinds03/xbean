@@ -1,4 +1,4 @@
-package com.xbean.test.bean;
+package com.googlecode.xbean.test.bean;
 
 public class ClientBean {
 
