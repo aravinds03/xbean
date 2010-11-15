@@ -24,8 +24,10 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.xbean.converters.BeanConverter;
-import com.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.converters.BeanConverter;
+import com.googlecode.xbean.converters.PropertyConverter;
+import com.googlecode.xbean.converters.impl.AnnotationBeanConverter;
+import com.googlecode.xbean.converters.impl.DatePropertyConverter;
 import com.xbean.test.AppendConvertor;
 import com.xbean.test.HexConvertor;
 import com.xbean.test.bean.ClientBean;
