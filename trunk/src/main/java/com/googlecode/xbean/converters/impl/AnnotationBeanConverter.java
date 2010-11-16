@@ -76,6 +76,14 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 */
 	public <S, D> D convert(Class<D> pTargetClass, S... pSourceInstances)
 			throws CannotConvertException {
+		if(isPrimitive(pTargetClass)) {
+			S s = pSourceInstances[0];
+			if(s.getClass().equals(pTargetClass)) {
+				return (D) s;
+			} else {
+				throw new CannotConvertException("Cannot convert instance of type "+s.getClass()+" to "+pTargetClass);
+			}
+		}
 		D targetInstance;
 		try {
 			targetInstance = pTargetClass.newInstance();
@@ -84,6 +92,7 @@ public class AnnotationBeanConverter implements BeanConverter {
 		} catch (IllegalAccessException e) {
 			throw new CannotConvertException(e);
 		}
+		
 		convertByInstance(targetInstance, pSourceInstances);
 
 		return targetInstance;
@@ -133,7 +142,11 @@ public class AnnotationBeanConverter implements BeanConverter {
 
 		try {
 			Class<? extends Object> targetClass = pTargetInstance.getClass();
-
+			
+			if(isPrimitive(targetClass)) {
+				throw new CannotConvertException("Cannot convert primitive class:"+targetClass+" by instance. Try calling convert() instead");
+			}
+			
 			Map<String, String> fieldsMap = XBeanUtils.createTargetFieldsMap(targetClass);
 
 			for (S pSourceInstance : pSourceInstances) {
@@ -183,7 +196,6 @@ public class AnnotationBeanConverter implements BeanConverter {
 						} else {
 							targetObject = sourceFieldObj;
 						}
-
 						targetField.set(pTargetInstance, targetObject);
 					}
 				}
@@ -191,6 +203,19 @@ public class AnnotationBeanConverter implements BeanConverter {
 		} catch (Exception e) {
 			throw new CannotConvertException(e);
 		}
+	}
+
+	private boolean isPrimitive(Class<? extends Object> targetClass) {
+		return targetClass.isPrimitive() || targetClass.equals(String.class) 
+				||targetClass.equals(Integer.class)
+				||targetClass.equals(Boolean.class)
+				||targetClass.equals(Character.class)
+				||targetClass.equals(Byte.class)
+				||targetClass.equals(Short.class)
+				||targetClass.equals(Long.class)
+				||targetClass.equals(Float.class)
+				||targetClass.equals(Double.class)
+				||targetClass.equals(Void.class);
 	}
 
 	/**

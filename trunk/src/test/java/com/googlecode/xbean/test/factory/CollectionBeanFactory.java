@@ -15,6 +15,15 @@ public class CollectionBeanFactory {
 		clientBean.setClientBeanList(newClientBeanList());
 		clientBean.setClientBeanSet(newClientBeanSet());
 		clientBean.setClientBean(SingleBeanFactory.newClientBean());
+		ArrayList<String> stringList = new ArrayList<String>();
+		clientBean.setStringList(stringList);
+		
+		stringList.add(FactoryConstants.NAME); 
+		stringList.add(FactoryConstants.DIFFERNT_NAME);
+		
+		clientBean.setClientIntArray(FactoryConstants.INT_ARRAY);
+		
+		 
 		return clientBean;
 	}
 

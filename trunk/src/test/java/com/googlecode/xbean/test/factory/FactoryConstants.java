@@ -21,4 +21,5 @@ public class FactoryConstants {
 	public static String HEX_STRING = "62a19a8d9f5";
 	public static String DATE_FORMAT = "1971-01-22";
 
+	public static int[] INT_ARRAY = {99,88,77,66,55,44};
 }

@@ -17,6 +17,10 @@ public class CollectionServiceBean {
 	@Convertible("clientBeanSet")
 	private Set<ServiceBean> serviceBeanSet;
 
+	private List<String> stringList;
+	
+	@Convertible("clientIntArray")
+	private int[] serviceIntArray;
 	/**
 	 * @return the serviceBean
 	 */
@@ -60,6 +64,24 @@ public class CollectionServiceBean {
 	 */
 	public void setServiceBeanSet(Set<ServiceBean> pServiceBeanSet) {
 		serviceBeanSet = pServiceBeanSet;
+	}
+
+	
+
+	public void setServiceIntArray(int[] serviceIntArray) {
+		this.serviceIntArray = serviceIntArray;
+	}
+
+	public int[] getServiceIntArray() {
+		return serviceIntArray;
+	}
+
+	public void setStringList(List<String> stringList) {
+		this.stringList = stringList;
+	}
+
+	public List<String> getStringList() {
+		return stringList;
 	}
 
 }
