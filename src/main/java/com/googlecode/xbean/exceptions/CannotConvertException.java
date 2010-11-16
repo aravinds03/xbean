@@ -19,6 +19,10 @@ public class CannotConvertException extends RuntimeException {
 		super(e);
 	}
 
+	public CannotConvertException(String string) {
+		super(string);
+	}
+
 	/**
 	 * 
 	 */

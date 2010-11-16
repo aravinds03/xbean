@@ -1,7 +1,7 @@
 package com.googlecode.xbean.converters.impl;
 
 import static com.googlecode.xbean.test.factory.ConverterBeanFactory.newClientBeanCustom;
-import static com.googlecode.xbean.test.factory.FactoryConstants.DATE_FORMAT;
+import static com.googlecode.xbean.test.factory.FactoryConstants.*;
 import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
 import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME1;
 import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME3;
@@ -177,6 +177,16 @@ public class AnnotationBeanConverterTest {
 			Assert.assertEquals(DIFFERNT_NAME, bean.getDifferentName1());
 			Assert.assertEquals(LONG_VAR, bean.getLongVar());
 			Assert.assertEquals(IGNORED_LONG_VAR, bean.getIgnoredLongVar());
+		}
+		
+		List<String> stringList = serviceBean.getStringList();
+		Assert.assertEquals(NAME, stringList.get(0));
+		Assert.assertEquals(DIFFERNT_NAME,stringList.get(1));
+		
+		int[] serviceIntArray = serviceBean.getServiceIntArray();
+		for (int i = 0; i < serviceIntArray.length; i++) {
+			int j = serviceIntArray[i];
+			Assert.assertEquals(INT_ARRAY[i],j);
 		}
 	}
 
