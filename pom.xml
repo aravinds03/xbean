@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.google.code.xbean</groupId>
 	<artifactId>xbean</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<name>XBeans</name>
 	<description>Library to do client(-)service bean conversion using annotations.</description>
 	<url>http://code.google.com/p/xbean/</url>
