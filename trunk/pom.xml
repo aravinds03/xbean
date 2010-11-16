@@ -4,7 +4,7 @@
 	<artifactId>xbean</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 	<name>XBeans</name>
-	<description>Library to do client(-)service bean conversion using annotations.</description>
+	<description>Library to do client(-)service bean conversion using annotations. </description>
 	<url>http://code.google.com/p/xbean/</url>
 	<licenses>
 		<license>
