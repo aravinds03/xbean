@@ -7,7 +7,7 @@
  If you are using maven , you can add dependency in your pom.xml as follow
 {{{
  <dependency>
-	<groupId>com</groupId>
+	<groupId>com.google.code.xbean</groupId>
 	<artifactId>xbean</artifactId>
 	<version>1.0.0</version>
  </dependency>
