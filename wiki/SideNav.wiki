@@ -1,10 +1,14 @@
 * [Overview Overview]
 
 * Getting Started
-  * [SimpleBeanConversion Simple Bean conversion]
-  * [PropertyConversion Custom Property conversion]
-  * [MultiBeanConversion Multi Bean conversion]
-* [Downloads Downloads]
+  * [HowToRun How to setup in dev box]
+  * [TroubleShooting Trouble shooting]
+
+* Release Process
+  * [ReleaseProcess Release Process]
+  * [IssuesFacedWithLastRelease Issues faced in last release]
+
+* [Features Upcoming features]
 
 * [Feedback Feedback]
 
