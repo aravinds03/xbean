@@ -1,0 +1,6 @@
+#summary Features under consideration
+
+= Features to consider =
+ # Provide method support.
+ # Provide nested property/method support. (eg: person.name )
+ # ...
