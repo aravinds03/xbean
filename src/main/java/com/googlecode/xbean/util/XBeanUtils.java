@@ -14,6 +14,7 @@ import com.googlecode.xbean.annotations.Ignore;
 import com.googlecode.xbean.converters.PropertyConverter;
 
 /**
+ * It contains utility methods.
  * @author asanthan
  * 
  * @version $Revision: 1.0 $
