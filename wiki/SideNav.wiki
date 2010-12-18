@@ -1,9 +1,11 @@
-* [Overview Overview]
-
+* [Overview Overview] 
 * Getting Started
   * [SimpleBeanConversion Simple Bean conversion]
   * [PropertyConversion Custom Property conversion]
   * [MultiBeanConversion Multi Bean conversion]
+  * [MultiBeanConversion Multi Bean conversion]
+  * [CustomConversion How to write plugin]
+
 * [Downloads Downloads]
 
 * [Features Features]
