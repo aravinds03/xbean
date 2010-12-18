@@ -81,6 +81,7 @@ public class DatePropertyConverter implements PropertyConverter<Date, String> {
 
   As you see, you can reuse _datePropConverter_ bean to many places. Also, you can have your own injection to the converters, if needed.
 
-= Details =
-You can see an example in our test class
+  You can see an example in our test class
 [http://code.google.com/p/xbean/source/browse/trunk/src/test/java/com/googlecode/xbean/converters/impl/AnnotationBeanConverterTest.java here]
+
+Go to [Multi Bean Conversion MultiBeanConversion].
