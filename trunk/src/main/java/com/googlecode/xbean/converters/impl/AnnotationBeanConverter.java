@@ -1,14 +1,19 @@
 package com.googlecode.xbean.converters.impl;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.googlecode.xbean.annotations.Convertible;
+import com.googlecode.xbean.conversion.Conversion;
+import com.googlecode.xbean.conversion.SourceDetails;
+import com.googlecode.xbean.conversion.TargetDetails;
+import com.googlecode.xbean.conversion.impl.AutoAnnotationConversion;
+import com.googlecode.xbean.conversion.impl.CustomPropertyConversion;
+import com.googlecode.xbean.conversion.impl.DefaultConversion;
+import com.googlecode.xbean.conversion.impl.ListPropertyConversion;
+import com.googlecode.xbean.conversion.impl.SetPropertyConversion;
 import com.googlecode.xbean.converters.BeanConverter;
 import com.googlecode.xbean.converters.PropertyConverter;
 import com.googlecode.xbean.exceptions.CannotConvertException;
@@ -28,6 +33,26 @@ import com.googlecode.xbean.util.XBeanUtils;
  */
 public class AnnotationBeanConverter implements BeanConverter {
 
+	private List<Conversion> conversionList = new ArrayList<Conversion>();
+
+	public AnnotationBeanConverter() {
+		conversionList.add(new ListPropertyConversion(this));
+		conversionList.add(new SetPropertyConversion(this));
+		conversionList.add(new AutoAnnotationConversion(this));
+		conversionList.add(new DefaultConversion());
+	}
+
+	/**
+	 * This methods add extra conversions passed to the existing conversionList.
+	 * All extra conversions will be added at the begining of the list. So ,
+	 * extra conversion's will be executed first.
+	 * 
+	 * @param pConversionList
+	 */
+	public void setConversionList(List<Conversion> pConversionList) {
+		conversionList.addAll(0, pConversionList);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,17 +61,7 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 */
 	public <S, D> List<D> convertToList(List<S> pSourceList, Class<D> pDestination)
 			throws Exception {
-		if (pDestination == null) {
-			throw new NullPointerException("Parameter pDestination is null");
-		}
-
-		List<D> destList = new ArrayList<D>(pSourceList.size());
-		if (pSourceList != null) {
-			for (S source : pSourceList) {
-				destList.add(convert(pDestination, new Object[] { source }));
-			}
-		}
-		return destList;
+		return new ListPropertyConversion(this).convertToList(pSourceList, pDestination);
 	}
 
 	/*
@@ -56,17 +71,7 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 * java.lang.Class)
 	 */
 	public <S, D> Set<D> convertToSet(Set<S> pSourceSet, Class<D> pDestination) throws Exception {
-		if (pDestination == null) {
-			throw new NullPointerException("Parameter pDestination is null");
-		}
-
-		Set<D> destSet = new HashSet<D>(pSourceSet.size());
-		if (pSourceSet != null) {
-			for (S source : pSourceSet) {
-				destSet.add(convert(pDestination, new Object[] { source }));
-			}
-		}
-		return destSet;
+		return new SetPropertyConversion(this).convertToSet(pSourceSet, pDestination);
 	}
 
 	/*
@@ -76,26 +81,13 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 */
 	public <S, D> D convert(Class<D> pTargetClass, S... pSourceInstances)
 			throws CannotConvertException {
-		if(isPrimitive(pTargetClass)) {
-			S s = pSourceInstances[0];
-			if(s.getClass().equals(pTargetClass)) {
-				return (D) s;
-			} else {
-				throw new CannotConvertException("Cannot convert instance of type "+s.getClass()+" to "+pTargetClass);
-			}
-		}
 		D targetInstance;
 		try {
 			targetInstance = pTargetClass.newInstance();
-		} catch (InstantiationException e) {
-			throw new CannotConvertException(e);
-		} catch (IllegalAccessException e) {
+		} catch (Exception e) {
 			throw new CannotConvertException(e);
 		}
-		
-		convertByInstance(targetInstance, pSourceInstances);
-
-		return targetInstance;
+		return convertByInstance(targetInstance, pSourceInstances);
 	}
 
 	/**
@@ -108,10 +100,9 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 * @throws CannotConvertException
 	 * @see com.xbean.converters.BeanConverter#convertByInstance(D, S[])
 	 */
-	public <S, D> void convertByInstance(D targetInstance, S... pSourceInstances)
+	public <S, D> D convertByInstance(D targetInstance, S... pSourceInstances)
 			throws CannotConvertException {
-		convertByInstanceConverter(targetInstance,
-				new HashSet<PropertyConverter<Object, Object>>(1), pSourceInstances);
+		return convertByInstanceConverter(targetInstance, XBeanUtils.emptySet, pSourceInstances);
 	}
 
 	/**
@@ -129,7 +120,7 @@ public class AnnotationBeanConverter implements BeanConverter {
 	 *      <P>
 	 *      , S[])
 	 */
-	public <S, D, P extends PropertyConverter<?, ?>> void convertByInstanceConverter(
+	public <S, D, P extends PropertyConverter<?, ?>> D convertByInstanceConverter(
 			D pTargetInstance, Set<P> pConverterInstanceSet, S... pSourceInstances)
 			throws CannotConvertException {
 
@@ -138,115 +129,55 @@ public class AnnotationBeanConverter implements BeanConverter {
 					"One or all parameters(targetInstance,pSourceInstances) are null");
 		}
 
-		Map<String, P> convertorsMap = XBeanUtils.createPropertyConverterMap(pConverterInstanceSet);
+		Class<? extends Object> targetClass = pTargetInstance.getClass();
 
-		try {
-			Class<? extends Object> targetClass = pTargetInstance.getClass();
-			
-			if(isPrimitive(targetClass)) {
-				throw new CannotConvertException("Cannot convert primitive class:"+targetClass+" by instance. Try calling convert() instead");
+		if (XBeanUtils.isPrimitive(targetClass)) {
+			S s = pSourceInstances[0];
+			if (s.getClass().equals(targetClass)) {
+				return (D) s;
+			} else {
+				throw new CannotConvertException("Cannot convert instance of type " + s.getClass()
+						+ " to " + targetClass);
 			}
-			
-			Map<String, String> fieldsMap = XBeanUtils.createTargetFieldsMap(targetClass);
+		}
 
+		List<Conversion> tempConversionList = new ArrayList<Conversion>(conversionList);
+		if (!pConverterInstanceSet.isEmpty()) {
+			Map<String, P> convertorsMap = XBeanUtils
+					.createPropertyConverterMap(pConverterInstanceSet);
+			tempConversionList.add(0, new CustomPropertyConversion<P>(convertorsMap));
+		}
+		try {
+
+			Map<String, String> fieldsMap = XBeanUtils.createTargetFieldsMap(targetClass);
 			for (S pSourceInstance : pSourceInstances) {
 
 				Field[] sourceFields = pSourceInstance.getClass().getDeclaredFields();
 
 				for (Field sourceField : sourceFields) {
-					Object targetObject = null; // to return.
-					Field targetField = null;
-					String key = null;
 					if (fieldsMap.containsKey(sourceField.getName())) {
-						targetField = targetClass.getDeclaredField(fieldsMap.get(sourceField
+						Field targetField = targetClass.getDeclaredField(fieldsMap.get(sourceField
 								.getName()));
+
 						targetField.setAccessible(true);
 						sourceField.setAccessible(true);
-						Object sourceFieldObj = sourceField.get(pSourceInstance);
 
-						// check auto property.
-						if (isAutoAvailable(targetField)) {
-							targetObject = convert(targetField.getType(), sourceFieldObj);
-						}
+						SourceDetails sourceDetails = new SourceDetails(pSourceInstance,
+								sourceField);
+						TargetDetails targetDetails = new TargetDetails(pTargetInstance,
+								targetField);
 
-						// check custom converter property.
-						else if ((key = getConverterClassName(targetField)) != null) {
-							PropertyConverter<Object, Object> pConverter = (PropertyConverter<Object, Object>) convertorsMap
-									.get(key);
-							targetObject = pConverter.convert(sourceFieldObj);
-
-						} else if (sourceFieldObj instanceof List<?>) {
-							try {
-								ParameterizedType dparamType = (ParameterizedType) targetField
-										.getGenericType();
-								targetObject = convertToList((List<?>) sourceFieldObj,
-										(Class<?>) dparamType.getActualTypeArguments()[0]);
-							} catch (Exception e) {
-								e.printStackTrace();
+						for (Conversion conversion : tempConversionList) {
+							if (conversion.convert(sourceDetails, targetDetails)) {
+								break;
 							}
-						} else if (sourceField.get(pSourceInstance) instanceof Set<?>) {
-							try {
-								ParameterizedType dparamType = (ParameterizedType) targetField
-										.getGenericType();
-								targetObject = convertToSet((Set<?>) sourceFieldObj,
-										(Class<?>) dparamType.getActualTypeArguments()[0]);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						} else {
-							targetObject = sourceFieldObj;
 						}
-						targetField.set(pTargetInstance, targetObject);
 					}
 				}
 			}
 		} catch (Exception e) {
 			throw new CannotConvertException(e);
 		}
+		return pTargetInstance;
 	}
-
-	private boolean isPrimitive(Class<? extends Object> targetClass) {
-		return targetClass.isPrimitive() || targetClass.equals(String.class) 
-				||targetClass.equals(Integer.class)
-				||targetClass.equals(Boolean.class)
-				||targetClass.equals(Character.class)
-				||targetClass.equals(Byte.class)
-				||targetClass.equals(Short.class)
-				||targetClass.equals(Long.class)
-				||targetClass.equals(Float.class)
-				||targetClass.equals(Double.class)
-				||targetClass.equals(Void.class);
-	}
-
-	/**
-	 * Method isAutoAvailable.
-	 * 
-	 * @param pTargetField
-	 *            Field
-	 * @return boolean -true if the target field has annotation Convertible
-	 *         whose auto property is set to true.
-	 */
-	private boolean isAutoAvailable(Field pTargetField) {
-		Convertible targetAnnotation = pTargetField.getAnnotation(Convertible.class);
-		return targetAnnotation != null && targetAnnotation.auto();
-	}
-
-	/**
-	 * Method getConverterClassName.
-	 * 
-	 * @param pTargetField
-	 *            Field
-	 * @return String - Returns property converter class name if available, else
-	 *         null.
-	 */
-	private String getConverterClassName(Field pTargetField) {
-		Convertible targetAnnotation = pTargetField.getAnnotation(Convertible.class);
-
-		if (targetAnnotation != null && targetAnnotation.convertor() != null
-				&& targetAnnotation.convertor() != DefaultConvertor.class) {
-			return targetAnnotation.convertor().getName();
-		}
-		return null;
-	}
-
 }

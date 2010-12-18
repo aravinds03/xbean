@@ -39,7 +39,7 @@ public interface BeanConverter {
 	 * 
 	 * @throws CannotConvertException
 	 */
-	<S, D> void convertByInstance(D pTargetObject, S... pSourceObject)
+	<S, D> D convertByInstance(D pTargetObject, S... pSourceObject)
 			throws CannotConvertException;
 
 	/**
@@ -78,6 +78,6 @@ public interface BeanConverter {
 	 *            S[]
 	 * @throws CannotConvertException
 	 */
-	<S, D, P extends PropertyConverter<?, ?>> void convertByInstanceConverter(D pTargetInstance,
+	<S, D, P extends PropertyConverter<?, ?>> D convertByInstanceConverter(D pTargetInstance,
 			Set<P> pConverterInstanceSet, S... pSourceInstances) throws CannotConvertException;
 }
