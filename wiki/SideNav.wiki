@@ -3,7 +3,6 @@
   * [SimpleBeanConversion Simple Bean conversion]
   * [PropertyConversion Custom Property conversion]
   * [MultiBeanConversion Multi Bean conversion]
-  * [MultiBeanConversion Multi Bean conversion]
   * [CustomPlugin How to write plugin]
 
 * [Downloads Downloads]
