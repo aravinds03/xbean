@@ -13,11 +13,11 @@ public class CollectionClientBean {
 	private List<ClientBean> clientBeanList;
 
 	private Set<ClientBean> clientBeanSet;
-	
+
 	private List<String> stringList;
-	
-	private int[] clientIntArray; 
-	
+
+	private int[] clientIntArray;
+
 	@Ignore
 	private List<String> clientIgnoredStringList;
 
@@ -65,7 +65,6 @@ public class CollectionClientBean {
 	public void setClientBeanSet(Set<ClientBean> pClientBeanSet) {
 		clientBeanSet = pClientBeanSet;
 	}
-
 
 	public void setClientIgnoredStringList(List<String> clientIgnoredStringList) {
 		this.clientIgnoredStringList = clientIgnoredStringList;

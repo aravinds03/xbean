@@ -9,6 +9,10 @@ package com.googlecode.xbean.exceptions;
  */
 public class CannotConvertException extends RuntimeException {
 
+	public CannotConvertException(String pMessage) {
+		super(pMessage);
+	}
+
 	/**
 	 * Constructor for CannotConvertException.
 	 * 
@@ -17,10 +21,6 @@ public class CannotConvertException extends RuntimeException {
 	 */
 	public CannotConvertException(Throwable e) {
 		super(e);
-	}
-
-	public CannotConvertException(String string) {
-		super(string);
 	}
 
 	/**

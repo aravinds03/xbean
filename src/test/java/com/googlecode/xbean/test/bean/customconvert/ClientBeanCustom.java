@@ -33,6 +33,15 @@ public class ClientBeanCustom {
 
 	private Date dateMember;
 
+	private static final long serialVersionUID = 4484898063805961558L;
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	/**
 	 * @return the id
 	 */

@@ -15,11 +15,19 @@ import com.googlecode.xbean.converters.PropertyConverter;
 
 /**
  * It contains utility methods.
- * @author asanthan
  * 
+ * @author asanthan
+ * @since 1.0
  * @version $Revision: 1.0 $
  */
 public class XBeanUtils {
+
+	public static Set<PropertyConverter<Object, Object>> emptySet = new HashSet<PropertyConverter<Object, Object>>(
+			1);
+
+	public static boolean isPrimitive(Class<? extends Object> targetClass) {
+		return targetClass.isPrimitive() || targetClass.equals(String.class);
+	}
 
 	/**
 	 * Method createPropertyConverterMap.
@@ -52,10 +60,10 @@ public class XBeanUtils {
 	public static Map<String, String> createTargetFieldsMap(Class<? extends Object> pTargetClass) {
 		Field[] targetFields = pTargetClass.getDeclaredFields();
 
-		HashMap<String, String> fieldsMap = new HashMap<String, String>(targetFields.length);
+		Map<String, String> fieldsMap = new HashMap<String, String>(targetFields.length);
 
 		for (Field field : targetFields) {
-			if (field.getAnnotation(Ignore.class) != null) {
+			if (field.isAnnotationPresent(Ignore.class)) {
 				continue;
 			}
 			Convertible targetAnnotation = field.getAnnotation(Convertible.class);

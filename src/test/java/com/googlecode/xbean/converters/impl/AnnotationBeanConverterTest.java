@@ -17,6 +17,7 @@ import static com.googlecode.xbean.test.factory.MultiBeanFactory.newServiceBean1
 import static com.googlecode.xbean.test.factory.MultiBeanFactory.newServiceBean2;
 import static com.googlecode.xbean.test.factory.SingleBeanFactory.newClientBean;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,8 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.googlecode.xbean.conversion.Conversion;
+import com.googlecode.xbean.conversion.impl.SerialVersionIgnoreConversion;
 import com.googlecode.xbean.converters.BeanConverter;
 import com.googlecode.xbean.converters.PropertyConverter;
 import com.googlecode.xbean.test.AppendConvertor;
@@ -32,6 +35,7 @@ import com.googlecode.xbean.test.bean.ClientBean;
 import com.googlecode.xbean.test.bean.ServiceBean;
 import com.googlecode.xbean.test.bean.collection.CollectionClientBean;
 import com.googlecode.xbean.test.bean.collection.CollectionServiceBean;
+import com.googlecode.xbean.test.bean.customconvert.ClientBeanCustom;
 import com.googlecode.xbean.test.bean.customconvert.ServiceBeanCustom;
 import com.googlecode.xbean.test.bean.multi.CompositeClientBean;
 import com.googlecode.xbean.test.factory.CollectionBeanFactory;
@@ -94,7 +98,7 @@ public class AnnotationBeanConverterTest {
 	}
 
 	@Test
-	public void testConvertByInstanceConverter() {
+	public void testConvertByInstance_CustomConverter() {
 		BeanConverter annotationBeanConverter = new AnnotationBeanConverter();
 
 		ServiceBeanCustom convert = new ServiceBeanCustom();
@@ -113,6 +117,37 @@ public class AnnotationBeanConverterTest {
 		Assert.assertEquals(HEX_STRING, convert.getHexLong());
 		Assert.assertEquals("string converted!!!!", convert.getDiffNameConvertor123());
 		Assert.assertEquals(DATE_FORMAT, convert.getDiffNameConvertorFromDate());
+		Assert.assertEquals(ClientBeanCustom.getSerialversionuid(),
+				ServiceBeanCustom.getSerialversionuid());
+	}
+
+	@Test
+	public void testConvertByInstance_CustomConverter_CustomConversion() {
+		AnnotationBeanConverter annotationBeanConverter = new AnnotationBeanConverter();
+
+		List<Conversion> conversionList = new ArrayList<Conversion>();
+		conversionList.add(new SerialVersionIgnoreConversion());
+		annotationBeanConverter.setConversionList(conversionList);
+
+		ServiceBeanCustom convert = new ServiceBeanCustom();
+		ServiceBeanCustom.setSerialVersionUID(0);
+		Set<PropertyConverter<?, ?>> converterSet = new HashSet<PropertyConverter<?, ?>>();
+		converterSet.add(new HexConvertor());
+		converterSet.add(new AppendConvertor());
+		converterSet.add(new DatePropertyConverter());
+		annotationBeanConverter.convertByInstanceConverter(convert, converterSet,
+				newClientBeanCustom());
+
+		Assert.assertEquals(ID, convert.getId());
+		Assert.assertEquals(NAME, convert.getString());
+		Assert.assertEquals(DIFFERNT_NAME, convert.getDifferentName1());
+		Assert.assertEquals(LONG_VAR, convert.getLongVar());
+		Assert.assertEquals(IGNORED_LONG_VAR, convert.getIgnoredLongVar());
+		Assert.assertEquals(HEX_STRING, convert.getHexLong());
+		Assert.assertEquals("string converted!!!!", convert.getDiffNameConvertor123());
+		Assert.assertEquals(DATE_FORMAT, convert.getDiffNameConvertorFromDate());
+		Assert.assertTrue(ClientBeanCustom.getSerialversionuid() != ServiceBeanCustom
+				.getSerialversionuid());
 	}
 
 	@Test

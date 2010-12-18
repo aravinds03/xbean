@@ -29,6 +29,23 @@ public class ServiceBeanCustom {
 	@Ignore
 	private long ignoredLongVar;
 
+	private static long serialVersionUID;
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * @param pSerialVersionUID
+	 *            the serialVersionUID to set
+	 */
+	public static void setSerialVersionUID(long pSerialVersionUID) {
+		serialVersionUID = pSerialVersionUID;
+	}
+
 	/**
 	 * @return the id
 	 */
