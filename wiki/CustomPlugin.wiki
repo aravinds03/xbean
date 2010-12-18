@@ -8,7 +8,7 @@ and sharable.
  We see the following scenarios where you can write plugin.
  # If you don't want to convert static final variables?.
  # If you don't want to move "serialVersionUID" variable (from Serializable interface) to other beans?.
- # If you want to Ignore all the variable's that starts with underscore (_).
+ # If you want to Ignore all the variable's that starts with underscore(__).
 
 = How to write plugin =
  Let's consider the second scenario from the above section.
