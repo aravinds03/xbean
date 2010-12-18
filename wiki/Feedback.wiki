@@ -1,4 +1,4 @@
 #summary Feedback
 
 = Feedback =
- _We always like to hear feedback from you. If you want to add or enhance any features in this library, please create an issue under issues tab._
+ _We always like to hear feedback from you. If you want to add or enhance any features in this library, please create an issue under issues tab or email me at aravinds86@gmail.com_.
