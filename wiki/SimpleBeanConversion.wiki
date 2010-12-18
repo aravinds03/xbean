@@ -86,7 +86,9 @@ clientBean.setUserName(serviceBean.getName());
  As you might have noticed, *we will specify annotations in destination bean only.* Suppose you have two beans which needs conversion in both forward and backward direction, then both beans hold respective annotations which will be used appropriately based on the type of direction.
 
 = Property type =
-  If source and destination property differs by data type, then autoboxing will be applied. If it is not possible, will result in exception.
+  If source and destination property differs by data type, then use [PropertyConversion Custom property converter ]. 
+
+  If no property converter is mentioned , then autoboxing will be applied. If autoboxing is not possible, will result in exception.
 
 = Property as a collection =
  If property is a List,Set or Collection, then xbean converter will recursively iterate the items and apply the conversion based on generic type. For example, if property is like
@@ -99,6 +101,6 @@ clientBean.setUserName(serviceBean.getName());
 }}}
 then,we will automatically create list of employees,iterate each item in personList and convert it to Employee  based on properties mentioned in Employee class and sets it to destination bean.
 
-
+ 
 
   
