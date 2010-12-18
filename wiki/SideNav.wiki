@@ -4,7 +4,7 @@
   * [PropertyConversion Custom Property conversion]
   * [MultiBeanConversion Multi Bean conversion]
   * [MultiBeanConversion Multi Bean conversion]
-  * [CustomConversion How to write plugin]
+  * [CustomPlugin How to write plugin]
 
 * [Downloads Downloads]
 
