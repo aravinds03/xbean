@@ -1,19 +1,42 @@
 #summary Custom Property Conversion
 
 = Converting property with different data types =
-Using xbean you can convert bean properties from one data type to another. You need to write your own [http://code.google.com/p/xbean/source/browse/trunk/src/main/java/com/xbean/converters/PropertyConverter.java PropertyConvertor] implementation.
+Using xbean you can convert bean properties from one data type to another. 
 
-The [http://code.google.com/p/xbean/source/browse/trunk/src/main/java/com/xbean/converters/PropertyConverter.java PropertyConvertor] interface:
+Consider client bean as
+{{{
+ class EmployeeClientBean{
+    @Convertible(value = "lastLoginDate", convertor = DatePropertyConverter.class)
+    private String lastLogin;
+ }
+}}}
+and service bean as
+{{{
+ class EmployeeServiceBean{
+    private Date lastLoginDate;
+ }
+}}}
+
+= Without xbean =
+
+{{{
+   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+   employeeClientBean.setLastLogin(sdf.format(employeeServiceBean.getLastLoginDate()));
+}}}
+
+= With Xbean =
+You need to write your own [http://code.google.com/p/xbean/source/browse/trunk/src/main/java/com/googlecode/xbean/converters/PropertyConverter.java PropertyConvertor] implementation.
+The PropertyConvertor interface:
 {{{
 public interface PropertyConverter<S, D> {
   public D convert(S pObject) throws Exception;
 }
 }}}
 
-To write your own custom convertor, you need to implement the convert method with the appropriate source and destination data types. 
+  To write your own custom convertor, you need to implement the convert method with the appropriate source and destination data types. 
 
-One example requirement would be write a Date to String convertor using a standard format. 
-You an write an implementation of it as:
+   Here, our source property type is _Date_ and destination property type is _String_.
+So, we can write our own converter to do this conversion as follows,
 {{{
 public class DatePropertyConverter implements PropertyConverter<Date, String> {
         private static final String MY_DATE_FORMAT = "yyyy-MM-dd";
@@ -24,17 +47,39 @@ public class DatePropertyConverter implements PropertyConverter<Date, String> {
 }
 }}}
 
-Then use it in your destination bean as
+  Now, please note that we have mentioned _DatePropertyConverter.class_ in the destination property in the form of annotation. By this way, xbean knows which converter to apply to which property.
+
+= Important Note = 
+  Now, we have to use xbean converter as follows
 {{{
-@Convertible(value = "startDate", convertor = DatePropertyConverter.class)
-private String startDateStr;
+ Set<PropertyConverter<?,?> converterSet = new HashSet<PropertyConverter<?,?>();
+ converterSet.add(new DatePropertyConverter());
+ ...
+ EmployeeClientBean clientBean = converter.convertByInstanceConverter(employeeClientBean,converterSet,employeeServiceBean);
 }}}
 
-This is equivalent to 
+  There are two main things which we need to observe here.
+ # XBean is not going to instantiate property converters. Because, property converters in general are reusable across many other properties as well as other bean classes. Also, the custom property converters might require extra references to do conversion. By considering all these reasons, we want you to pass instance of property converters. In the above example, the client bean needs only one converter and so,we are passing _Set (converterSet)_ with one converter _(DatePropertyConverter)_.  
+ # *You need to make sure that you have passed instances of all property converters which you mentioned in the annotations.*
+  
+ 
+= How to use in spring=
+ If you are using spring,you can define custom property converters as follows
 {{{
-SimpleDateFormat sdf = new SimpleDateFormat(MY_DATE_FORMAT);
-destinationBean.setStartDateStr(sdf.format(sourceBean.getStartDate()));
+  <bean id="userBean" class="...">
+        <property name="beanConverter" ref="beanConverter"/> 
+        <property name="set">
+            <set>
+                <ref bean="datePropConverter"/>
+            </set>
+        </property>
+  </bean>
+  <bean id="datePropConverter" class="com.x.y.DatePropertyConverter"/>
+  <bean id="beanConverter" class="com.xbean.converter.impl.AnnotationBeanConverter"/>
+
 }}}
+
+  As you see, you can reuse _datePropConverter_ bean to many places. Also, you can have your own injection to the converters, if needed.
 
 = Details =
 You can see an example in our test class
