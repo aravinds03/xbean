@@ -1,7 +1,46 @@
 #summary Multiple Bean Conversion
 
-= Introduction =
- _TBD_
+= Client and Service Bean's = 
+Let's take below client bean as follows.
+{{{
+public class ClientBean{
+   private int id;
+   private String employeeName;
+   @Convertible("address")
+   private String employeeAddress;
+}
+}}}
 
-= Details =
- _TBD_
+and Service Bean1 looks like
+{{{
+public class Employee{
+  private int id;
+  private String employeeName;
+}
+}}}
+and Service Bean2 looks like
+{{{
+public class Address{
+  private String address;
+}
+}}}
+
+= Without xbean =
+ Without xbean, we will convert service bean to client bean as follows.
+{{{
+  ClientBean clientBean = new ClientBean();
+  clientBean.setId(employee.getId());
+  clientBean.setEmployeeName(employee.getEmployeeName());
+  clientBean.setAddress(address.getAddress));
+}}}
+
+= With Bean Converter =
+ With XBean converter, it will be as simple as,
+{{{
+ ClientBean clientBean = converter.convert(ClientBean.class,employee,address);
+}}}
+ Here,_employee_ and _address_ are the instances of Employee and Address classes.
+
+= Things to remember =
+  In case of multi-bean conversion, if two service beans have same property name, then one which mentioned at the end of method call will be pickup at last . Because it overrides the previous values.
+  In the above example, if employee and address have two properties with same name, then property in address will be picked up in client bean as it is the last parameter in the method call. Employee property will be picked up if it is the last argument .
