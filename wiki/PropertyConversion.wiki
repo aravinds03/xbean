@@ -83,4 +83,4 @@ public class DatePropertyConverter implements PropertyConverter<Date, String> {
 
 = Details =
 You can see an example in our test class
-http://code.google.com/p/xbean/source/browse/#svn/trunk/src/test/java/com/xbean/converters/impl
+[http://code.google.com/p/xbean/source/browse/trunk/src/test/java/com/googlecode/xbean/converters/impl/AnnotationBeanConverterTest.java here]
