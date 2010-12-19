@@ -2,7 +2,7 @@
 
 = Introduction =
  Though, we provide all kind of flexibility in doing bean conversions, we know that we can't write code to support all kind of requirement's in this world. So we have provided you a way to do your own bean conversion.We call it as *Plugins*. The plugins are reusable 
-and sharable.
+ and shareable.
 
 = When should i write plugin? =
  We see the following scenarios where you can write plugin.
@@ -13,7 +13,7 @@ and sharable.
 = How to write plugin =
  Let's consider the second scenario from the above section.
  I knew that , if i pass serialVersion id variable(need to be unique) to the client beans,then it will result in series consequences. So, we are going to write custom conversion(Note, this is not custom property converter). 
-  *Custom Conversions* are generic and applicable to all the variables during bean conversion.
+ **Custom Conversions* are generic and applicable to all the variables during bean conversion.
    You need to write your own [http://code.google.com/p/xbean/source/browse/trunk/src/main/java/com/googlecode/xbean/conversion/Conversion.java Conversion] implementation.
 The Conversion interface:
 {{{
@@ -37,7 +37,7 @@ public class SerialVersionIgnoreConversion implements Conversion {
 }}}
 
 = How to use plugin =
-  Integrating plugin with existing bean conversion is trivial as follows,
+  Integrating plugin with existing bean conversion is as easy as follows,
 {{{
    List<Conversion> conversionList = new ArrayList<Conversion>();
    conversionList.add(new SerialVersionIgnoreConversion());
