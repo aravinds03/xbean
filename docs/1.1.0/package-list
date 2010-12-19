@@ -1,0 +1,8 @@
+com.googlecode.xbean.annotations
+com.googlecode.xbean.conversion
+com.googlecode.xbean.conversion.impl
+com.googlecode.xbean.converters
+com.googlecode.xbean.converters.impl
+com.googlecode.xbean.exceptions
+com.googlecode.xbean.factory
+com.googlecode.xbean.util
