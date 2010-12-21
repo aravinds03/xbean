@@ -56,6 +56,7 @@ public class AnnotationBeanConverterTest {
 		Assert.assertEquals(NAME, convert.getName());
 		Assert.assertEquals(DIFFERNT_NAME, convert.getDifferentName1());
 		Assert.assertEquals(LONG_VAR, convert.getLongVar());
+		Assert.assertNull(convert.getSomeAlwaysNullObj());
 
 		// Make sure the ignored long varaible is 0
 		Assert.assertEquals(IGNORED_LONG_VAR_ZERO, convert.getIgnoredLongVar());
@@ -70,6 +71,7 @@ public class AnnotationBeanConverterTest {
 	public void testConvertByInstance() {
 		BeanConverter annotationBeanConverter = new AnnotationBeanConverter();
 		ServiceBean convert = new ServiceBean();
+		convert.setIgnoredLongVar(LONG_VAR);
 		annotationBeanConverter.convertByInstance(convert, newClientBean());
 		
 		// Assert the fields have same value.
@@ -77,9 +79,10 @@ public class AnnotationBeanConverterTest {
 		Assert.assertEquals(NAME, convert.getName());
 		Assert.assertEquals(DIFFERNT_NAME, convert.getDifferentName1());
 		Assert.assertEquals(LONG_VAR, convert.getLongVar());
+		Assert.assertNull(convert.getSomeAlwaysNullObj());
 		
-		// Make sure the ignored long varaible is 0
-		Assert.assertEquals(IGNORED_LONG_VAR_ZERO, convert.getIgnoredLongVar());
+		// Make sure the ignored long varaible is actual and not made zero or changed.
+		Assert.assertEquals(LONG_VAR, convert.getIgnoredLongVar());
 	}
 
 	/**
@@ -203,13 +206,16 @@ public class AnnotationBeanConverterTest {
 		List<ClientBean> clientBeanList = CollectionBeanFactory.newClientBeanList();
 		List<ServiceBean> beanList = annotationBeanConverter.convertToList(clientBeanList,
 				ServiceBean.class);
-		for (ServiceBean bean : beanList) {
+		Assert.assertEquals(clientBeanList.size(), beanList.size());
+		for(int i=0;i<beanList.size();++i) {
+			ServiceBean bean = beanList.get(i);
 			Assert.assertEquals(ID, bean.getId());
-			Assert.assertEquals(NAME, bean.getName());
+			Assert.assertEquals(NAME+i, bean.getName());
 			Assert.assertEquals(DIFFERNT_NAME, bean.getDifferentName1());
 			Assert.assertEquals(LONG_VAR, bean.getLongVar());
 			Assert.assertEquals(IGNORED_LONG_VAR_ZERO, bean.getIgnoredLongVar());
 		}
+
 	}
 
 	/**
@@ -249,17 +255,20 @@ public class AnnotationBeanConverterTest {
 		Assert.assertEquals(DIFFERNT_NAME, bean1.getDifferentName1());
 		Assert.assertEquals(LONG_VAR, bean1.getLongVar());
 		Assert.assertEquals(IGNORED_LONG_VAR_ZERO, bean1.getIgnoredLongVar());
-
+		
 		List<ServiceBean> beanList = serviceBean.getServiceBeanList();
-		for (ServiceBean bean : beanList) {
+		Assert.assertEquals(clientBean.getClientBeanList().size(), beanList.size());
+		for(int i=0;i<beanList.size();++i) {
+			ServiceBean bean = beanList.get(i);
 			Assert.assertEquals(ID, bean.getId());
-			Assert.assertEquals(NAME, bean.getName());
+			Assert.assertEquals(NAME+i, bean.getName());
 			Assert.assertEquals(DIFFERNT_NAME, bean.getDifferentName1());
 			Assert.assertEquals(LONG_VAR, bean.getLongVar());
 			Assert.assertEquals(IGNORED_LONG_VAR_ZERO, bean.getIgnoredLongVar());
 		}
 
 		Set<ServiceBean> beanSet = serviceBean.getServiceBeanSet();
+		Assert.assertEquals(clientBean.getClientBeanSet().size(), beanSet.size());
 		for (ServiceBean bean : beanSet) {
 			Assert.assertEquals(ID, bean.getId());
 			Assert.assertEquals(NAME, bean.getName());

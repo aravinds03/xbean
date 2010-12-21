@@ -17,6 +17,8 @@ public class ServiceBean {
 
 	@Ignore
 	private long ignoredLongVar;
+	
+	private Boolean someAlwaysNullObj;
 
 	/**
 	 * @return the id
@@ -91,6 +93,14 @@ public class ServiceBean {
 	 */
 	public void setIgnoredLongVar(long pIgnoredLongVar) {
 		ignoredLongVar = pIgnoredLongVar;
+	}
+
+	public void setSomeAlwaysNullObj(Boolean someAlwaysNullObj) {
+		this.someAlwaysNullObj = someAlwaysNullObj;
+	}
+
+	public Boolean getSomeAlwaysNullObj() {
+		return someAlwaysNullObj;
 	}
 
 }
