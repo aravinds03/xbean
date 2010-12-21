@@ -11,6 +11,8 @@ public class ClientBean {
 	private long longVar;
 
 	private long ignoredLongVar;
+	
+	private Boolean someAlwaysNullObj;
 
 	/**
 	 * @return the id
@@ -87,4 +89,12 @@ public class ClientBean {
 		ignoredLongVar = pIgnoredLongVar;
 	}
 
+	public void setSomeAlwaysNullObj(Boolean someAlwaysNullObj) {
+		this.someAlwaysNullObj = someAlwaysNullObj;
+	}
+
+	public Boolean getSomeAlwaysNullObj() {
+		return someAlwaysNullObj;
+	}
+	
 }

@@ -126,8 +126,8 @@ public class AnnotationBeanConverter implements BeanConverter {
 			throws CannotConvertException {
 
 		if (pTargetInstance == null || pSourceInstances == null) {
-			throw new NullPointerException(
-					"One or all parameters(targetInstance,pSourceInstances) are null");
+			throw new CannotConvertException(
+					"One or all parameters(targetInstance,pSourceInstances) are null.TargetInstance="+pTargetInstance+",SourceInstaces:"+pSourceInstances);
 		}
 
 		Class<? extends Object> targetClass = pTargetInstance.getClass();

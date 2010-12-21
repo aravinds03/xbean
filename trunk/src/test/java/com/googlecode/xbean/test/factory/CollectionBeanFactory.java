@@ -29,13 +29,20 @@ public class CollectionBeanFactory {
 
 	public static List<ClientBean> newClientBeanList() {
 		List<ClientBean> beanList = new ArrayList<ClientBean>();
-		beanList.add(SingleBeanFactory.newClientBean());
+		for (int i = 0; i < 5; ++i) {
+			ClientBean newClientBean = SingleBeanFactory.newClientBean();
+			newClientBean.setName(newClientBean.getName() + i);
+			beanList.add(newClientBean);
+		}
+
 		return beanList;
 	}
 
 	public static Set<ClientBean> newClientBeanSet() {
 		Set<ClientBean> beanSet = new HashSet<ClientBean>();
-		beanSet.add(SingleBeanFactory.newClientBean());
+		for (int i = 0; i < 5; ++i) {
+			beanSet.add(SingleBeanFactory.newClientBean());
+		}
 		return beanSet;
 	}
 }
