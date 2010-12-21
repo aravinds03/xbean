@@ -2,6 +2,7 @@ package com.googlecode.xbean.converters.impl;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -141,7 +142,7 @@ public class AnnotationBeanConverter implements BeanConverter {
 			}
 		}
 
-		List<Conversion> tempConversionList = new ArrayList<Conversion>(conversionList);
+		List<Conversion> tempConversionList = new LinkedList<Conversion>(conversionList);
 		if (!pConverterInstanceSet.isEmpty()) {
 			Map<String, P> convertorsMap = XBeanUtils
 					.createPropertyConverterMap(pConverterInstanceSet);

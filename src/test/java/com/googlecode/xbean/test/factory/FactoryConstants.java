@@ -6,7 +6,7 @@ public class FactoryConstants {
 	public static String NAME = "Hello";
 	public static String DIFFERNT_NAME = "Hello_varies";
 	public static long LONG_VAR = 20000000000l;
-	public static long IGNORED_LONG_VAR = 0l;
+	public static long IGNORED_LONG_VAR_ZERO = 0l;
 	public static long ACTUAL_LONG_VAR = 3333l;
 
 	public static int ID2 = 333;
