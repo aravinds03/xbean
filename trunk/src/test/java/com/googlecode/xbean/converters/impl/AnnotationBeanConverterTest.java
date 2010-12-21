@@ -1,7 +1,7 @@
 package com.googlecode.xbean.converters.impl;
 
 import static com.googlecode.xbean.test.factory.ConverterBeanFactory.newClientBeanCustom;
-import static com.googlecode.xbean.test.factory.FactoryConstants.*;
+import static com.googlecode.xbean.test.factory.FactoryConstants.DATE_FORMAT;
 import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME;
 import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME1;
 import static com.googlecode.xbean.test.factory.FactoryConstants.DIFFERNT_NAME3;
@@ -9,6 +9,7 @@ import static com.googlecode.xbean.test.factory.FactoryConstants.HEX_STRING;
 import static com.googlecode.xbean.test.factory.FactoryConstants.ID;
 import static com.googlecode.xbean.test.factory.FactoryConstants.ID2;
 import static com.googlecode.xbean.test.factory.FactoryConstants.IGNORED_LONG_VAR_ZERO;
+import static com.googlecode.xbean.test.factory.FactoryConstants.INT_ARRAY;
 import static com.googlecode.xbean.test.factory.FactoryConstants.LONG_VAR;
 import static com.googlecode.xbean.test.factory.FactoryConstants.NAME;
 import static com.googlecode.xbean.test.factory.FactoryConstants.SOME_STRING;
@@ -24,6 +25,8 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.googlecode.xbean.conversion.Conversion;
 import com.googlecode.xbean.conversion.impl.SerialVersionIgnoreConversion;
@@ -288,6 +291,54 @@ public class AnnotationBeanConverterTest {
 		}
 	}
 
+	@Test
+	public void testConvert_SpringBeanUsage_Collection() {
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"test-spring-context.xml"});
+		BeanConverter annotationBeanConverter = (BeanConverter)context.getBean("xbean-convertor");
+		
+		
+		CollectionClientBean clientBean = CollectionBeanFactory.newCollectionClientBean();
+		CollectionServiceBean serviceBean = annotationBeanConverter.convert(
+				CollectionServiceBean.class, clientBean);
+
+		ServiceBean bean1 = serviceBean.getServiceBean();
+		Assert.assertEquals(ID, bean1.getId());
+		Assert.assertEquals(NAME, bean1.getName());
+		Assert.assertEquals(DIFFERNT_NAME, bean1.getDifferentName1());
+		Assert.assertEquals(LONG_VAR, bean1.getLongVar());
+		Assert.assertEquals(IGNORED_LONG_VAR_ZERO, bean1.getIgnoredLongVar());
+		
+		List<ServiceBean> beanList = serviceBean.getServiceBeanList();
+		Assert.assertEquals(clientBean.getClientBeanList().size(), beanList.size());
+		for(int i=0;i<beanList.size();++i) {
+			ServiceBean bean = beanList.get(i);
+			Assert.assertEquals(ID, bean.getId());
+			Assert.assertEquals(NAME+i, bean.getName());
+			Assert.assertEquals(DIFFERNT_NAME, bean.getDifferentName1());
+			Assert.assertEquals(LONG_VAR, bean.getLongVar());
+			Assert.assertEquals(IGNORED_LONG_VAR_ZERO, bean.getIgnoredLongVar());
+		}
+
+		Set<ServiceBean> beanSet = serviceBean.getServiceBeanSet();
+		Assert.assertEquals(clientBean.getClientBeanSet().size(), beanSet.size());
+		for (ServiceBean bean : beanSet) {
+			Assert.assertEquals(ID, bean.getId());
+			Assert.assertEquals(NAME, bean.getName());
+			Assert.assertEquals(DIFFERNT_NAME, bean.getDifferentName1());
+			Assert.assertEquals(LONG_VAR, bean.getLongVar());
+			Assert.assertEquals(IGNORED_LONG_VAR_ZERO, bean.getIgnoredLongVar());
+		}
+		
+		List<String> stringList = serviceBean.getStringList();
+		Assert.assertEquals(NAME, stringList.get(0));
+		Assert.assertEquals(DIFFERNT_NAME,stringList.get(1));
+		
+		int[] serviceIntArray = serviceBean.getServiceIntArray();
+		for (int i = 0; i < serviceIntArray.length; i++) {
+			int j = serviceIntArray[i];
+			Assert.assertEquals(INT_ARRAY[i],j);
+		}
+	}
 	// TODO: Add tests for cases where you have same field names for different
 	// types of members in different beans
 	// TODO: Add tests for hierarchial classes/objects
