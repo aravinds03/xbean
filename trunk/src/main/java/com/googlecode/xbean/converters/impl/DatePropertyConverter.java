@@ -6,7 +6,8 @@ import java.util.Date;
 import com.googlecode.xbean.converters.PropertyConverter;
 
 /**
- * This is a sample convertor
+ * This is a sample convertor which converts a Date object to string
+ * with the format "yyyy-MM-dd"
  * 
  * @author asanthan
  * @version $Revision: 1.0 $
